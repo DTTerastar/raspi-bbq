@@ -14,8 +14,8 @@ public class RaspiBBQ {
             System.out.println("wiringPiSPISetup FAILED");
             return;
         }
-        
-		read();
+        while(true)
+			read();
     }
     
     public static void read(){
