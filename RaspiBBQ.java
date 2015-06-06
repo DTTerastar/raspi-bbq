@@ -3,7 +3,7 @@ import com.pi4j.io.gpio;
 
 public class RaspiBBQ {
 
-    private static Pin spiCs   = RaspiPin.GPIO_06
+    private static Pin spiCs   = RaspiPin.GPIO_06;
 	
     @SuppressWarnings("unused")
     public static void main(String args[]) throws InterruptedException {
