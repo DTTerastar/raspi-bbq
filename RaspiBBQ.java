@@ -29,7 +29,7 @@ public class RaspiBBQ {
     
     public static void read(){
 		GpioController gpio = GpioFactory.getInstance();
-		chipSelectOutput = gpio.provisionDigitalOutputPin(spiCs,   "CS",   PinState.LOW);
+		GpioPinDigitalOutput chipSelectOutput = gpio.provisionDigitalOutputPin(spiCs,   "CS",   PinState.LOW);
         byte packet[] = new byte[2];
         packet[0] = 0b00000000;
         packet[1] = 0b00000000;
@@ -39,7 +39,7 @@ public class RaspiBBQ {
         Spi.wiringPiSPIDataRW(0, packet, 2);        
         System.out.println("[RX] " + bytesToHex(packet));
         //System.out.println("-----------------------------------------------");
-		chipSelectOutput = gpio.provisionDigitalOutputPin(spiCs,   "CS",   PinState.HIGH);
+		chipSelectOutput.high();
     }
     
     public static String bytesToHex(byte[] bytes) {
