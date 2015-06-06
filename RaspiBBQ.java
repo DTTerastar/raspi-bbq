@@ -21,7 +21,7 @@ public class RaspiBBQ {
     public static void read(){
         byte packet[] = new byte[2];
         packet[0] = 0b00000000;
-        packet[2] = 0b00000000;
+        packet[1] = 0b00000000;
 		
         System.out.println("-----------------------------------------------");
         System.out.println("[TX] " + bytesToHex(packet));
