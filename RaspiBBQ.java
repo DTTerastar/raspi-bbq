@@ -23,11 +23,11 @@ public class RaspiBBQ {
         packet[0] = 0b00000000;
         packet[1] = 0b00000000;
 		
-        System.out.println("-----------------------------------------------");
-        System.out.println("[TX] " + bytesToHex(packet));
+        //System.out.println("-----------------------------------------------");
+        //System.out.println("[TX] " + bytesToHex(packet));
         Spi.wiringPiSPIDataRW(0, packet, 2);        
         System.out.println("[RX] " + bytesToHex(packet));
-        System.out.println("-----------------------------------------------");
+        //System.out.println("-----------------------------------------------");
     }
     
     public static String bytesToHex(byte[] bytes) {
