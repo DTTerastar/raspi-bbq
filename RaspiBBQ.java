@@ -44,8 +44,11 @@ public class RaspiBBQ {
 		long raw=((long)packet[0] << 8) | (packet[1] & 0xFF); //raw thermocouple reading 1/4 deg C x4? x8?
 		boolean tcopenerr=(raw & 0x0004) != 0; //check tc open err bit d2
 		long qdeg=raw >> 3;
+		
 		System.out.println(raw);
-        System.out.println(qdeg/4.0);
+        
+		float temps = ((qdeg/4.0) * 9/5.0) +32; 
+		System.out.println(qdeg/4.0+"C "+temps+"F");
 		chipSelectOutput.high();
     }
     
