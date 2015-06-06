@@ -17,6 +17,7 @@ public class RaspiBBQ {
 
         System.out.println("Pi BBQ!");
         
+		GpioController gpio = GpioFactory.getInstance();
 		chipSelectOutput = gpio.provisionDigitalOutputPin(spiCs,   "CS",   PinState.LOW);        
         int fd = Spi.wiringPiSPISetup(0, 4000000);
         if (fd <= -1) {
@@ -31,7 +32,6 @@ public class RaspiBBQ {
     
     public static void read(){
 		chipSelectOutput.low();
-		GpioController gpio = GpioFactory.getInstance();
 		
         byte packet[] = new byte[2];
         packet[0] = 0b00000000;
