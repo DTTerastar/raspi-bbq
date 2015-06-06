@@ -47,7 +47,7 @@ public class RaspiBBQ {
 		
 		System.out.println(raw);
         
-		float temps = ((qdeg/4.0) * 9/5.0) +32; 
+		double temps = ((qdeg/4.0) * 9/5.0) +32; 
 		System.out.println(qdeg/4.0+"C "+temps+"F");
 		chipSelectOutput.high();
     }
