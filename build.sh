@@ -1,3 +1,3 @@
 #!/bin/bash
-pi4j -c raspi-bbq.java
-pi4j -r raspi-bbq
+pi4j -c RaspiBBQ.java
+pi4j -r RaspiBBQ
