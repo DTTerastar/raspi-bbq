@@ -42,7 +42,7 @@ public class RaspiBBQ {
         Spi.wiringPiSPIDataRW(0, packet, 2);        
         System.out.println("[RX] " + bytesToHex(packet));
 		int raw=((int)packet[0] << 8) + packet[1]; //raw thermocouple reading 1/4 deg C x4? x8?
-		bool tcopenerr=(raw & 0x0004) != 0; //check tc open err bit d2
+		boolean tcopenerr=(raw & 0x0004) != 0; //check tc open err bit d2
 		int qdeg=raw >> 3;
         System.out.println(qdeg/4.0);
 		chipSelectOutput.high();
