@@ -1,9 +1,10 @@
 import com.pi4j.wiringpi.Spi;
+import com.pi4j.io.gpio;
 
 public class RaspiBBQ {
 
-    public static byte READ_CMD  = 0x41;
-    
+    private static Pin spiCs   = RaspiPin.GPIO_06
+	
     @SuppressWarnings("unused")
     public static void main(String args[]) throws InterruptedException {
 
@@ -14,11 +15,15 @@ public class RaspiBBQ {
             System.out.println("wiringPiSPISetup FAILED");
             return;
         }
-        while(true)
+        while(true) {
+			Thread.sleep(1000);
 			read();
+		}
     }
     
     public static void read(){
+		GpioController gpio = GpioFactory.getInstance();
+		chipSelectOutput = gpio.provisionDigitalOutputPin(spiCs,   "CS",   PinState.LOW);
         byte packet[] = new byte[2];
         packet[0] = 0b00000000;
         packet[1] = 0b00000000;
@@ -28,6 +33,7 @@ public class RaspiBBQ {
         Spi.wiringPiSPIDataRW(0, packet, 2);        
         System.out.println("[RX] " + bytesToHex(packet));
         //System.out.println("-----------------------------------------------");
+		chipSelectOutput = gpio.provisionDigitalOutputPin(spiCs,   "CS",   PinState.HIGH);
     }
     
     public static String bytesToHex(byte[] bytes) {
