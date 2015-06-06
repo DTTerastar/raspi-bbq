@@ -10,12 +10,14 @@ import com.pi4j.io.gpio.RaspiPin;
 public class RaspiBBQ {
 
     private static Pin spiCs   = RaspiPin.GPIO_10;
+	private static GpioPinDigitalOutput chipSelectOutput;
 	
     @SuppressWarnings("unused")
     public static void main(String args[]) throws InterruptedException {
 
         System.out.println("Pi BBQ!");
-                
+        
+		chipSelectOutput = gpio.provisionDigitalOutputPin(spiCs,   "CS",   PinState.LOW);        
         int fd = Spi.wiringPiSPISetup(0, 4000000);
         if (fd <= -1) {
             System.out.println("wiringPiSPISetup FAILED");
@@ -28,8 +30,9 @@ public class RaspiBBQ {
     }
     
     public static void read(){
+		chipSelectOutput.low();
 		GpioController gpio = GpioFactory.getInstance();
-		GpioPinDigitalOutput chipSelectOutput = gpio.provisionDigitalOutputPin(spiCs,   "CS",   PinState.LOW);
+		
         byte packet[] = new byte[2];
         packet[0] = 0b00000000;
         packet[1] = 0b00000000;
