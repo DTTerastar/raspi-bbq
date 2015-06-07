@@ -165,7 +165,7 @@ public class AdafruitSSD1306
     this.command(SSD1306_SETDISPLAYCLOCKDIV);  // 0xD5
     this.command(0x80);                        // the suggested ratio 0x80
     this.command(SSD1306_SETMULTIPLEX);        // 0xA8
-    this.command(0x1F);
+    this.command(0x3F);
     this.command(SSD1306_SETDISPLAYOFFSET);    // 0xD3
     this.command(0x0);                         // no offset
     this.command(SSD1306_SETSTARTLINE | 0x0);  // line //0
@@ -179,9 +179,12 @@ public class AdafruitSSD1306
     this.command(SSD1306_SEGREMAP | 0x1);
     this.command(SSD1306_COMSCANDEC);
     this.command(SSD1306_SETCOMPINS);          // 0xDA
-    this.command(0x02);
+    this.command(0x12);
     this.command(SSD1306_SETCONTRAST);         // 0x81
-    this.command(0x8F);
+    if (this.vccstate == SSD1306_EXTERNALVCC)
+      this.command(0x9F);
+    else
+      this.command(0xCF);
     this.command(SSD1306_SETPRECHARGE);        // 0xd9
     if (this.vccstate == SSD1306_EXTERNALVCC)
       this.command(0x22);

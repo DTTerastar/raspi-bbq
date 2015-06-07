@@ -31,12 +31,10 @@ public class Main {
             if ("true".equals(System.getProperty("verbose", "false")))
                 System.out.println("Screenbuffer ready...");
 
-            if (false) {
-                sb.text("ScreenBuffer", 2, 8);
-                sb.text("128 x 32 for OLED", 2, 17);
-                sb.line(0, 19, 131, 19);
-                sb.line(0, 32, 125, 19);
-            }
+            sb.text("ScreenBuffer", 2, 8);
+            sb.text("128 x 32 for OLED", 2, 17);
+            sb.line(0, 19, 131, 19);
+            sb.line(0, 32, 125, 19);
 
             if ("true".equals(System.getProperty("verbose", "false")))
                 System.out.println("Let's go...");
