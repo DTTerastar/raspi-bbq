@@ -3,6 +3,14 @@
     <groupId>com.raspi.bbq</groupId>
     <artifactId>raspi-bbq</artifactId>
     <version>1</version>
+    <packaging>jar</packaging>
+    
+    <properties>
+        <pi4j.version>0.0.5</pi4j.version>
+        <compiler-plugin.version>3.1</compiler-plugin.version>
+        <assembly-plugin.version>2.4</assembly-plugin.version>
+    </properties>
+
     <repositories>
         <repository>
             <id>sonatype</id>
