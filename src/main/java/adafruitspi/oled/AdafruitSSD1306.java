@@ -60,7 +60,6 @@ public class AdafruitSSD1306
 
   private int width;
   private int height;
-  private int address;
   private int pages;
 
   private int[] buffer = null;
@@ -75,7 +74,6 @@ public class AdafruitSSD1306
   private void initSSD1306(int w, int h, int address) throws IOException {
     this.width = w;
     this.height = h;
-    this.address = address;
     this.pages = this.height / 8; // Number of lines
     this.buffer = new int[this.width * this.pages];
     clear();
@@ -94,20 +92,18 @@ public class AdafruitSSD1306
   }
 
   private void command(int c) throws IOException {
-    byte[] buf = new byte[]{SSD_Command_Mode, (byte) (c & 0xFF)};
-    disp.write(address, buf, 0, buf.length);
-    System.out.println(bytesToHex(buf));
+    disp.write(SSD_Command_Mode, (byte) (c & 0xFF));
   }
 
   private void command(int c, int d) throws IOException {
-    byte[] buf = new byte[]{SSD_Command_Mode, (byte) (c & 0xFF), (byte) (d & 0xFF)};
-    disp.write(address, buf, 0, buf.length);
+    byte[] buf = new byte[]{(byte) (c & 0xFF), (byte) (d & 0xFF)};
+    disp.write(SSD_Command_Mode, buf, 0, buf.length);
     System.out.println(bytesToHex(buf));
   }
 
   private void command(int c, int d, int e) throws IOException {
-    byte[] buf = new byte[]{SSD_Command_Mode, (byte) (c & 0xFF), (byte) (d & 0xFF), (byte) (e & 0xFF)};
-    disp.write(address, buf, 0, buf.length);
+    byte[] buf = new byte[]{(byte) (c & 0xFF), (byte) (d & 0xFF), (byte) (e & 0xFF)};
+    disp.write(SSD_Command_Mode, buf, 0, buf.length);
     System.out.println(bytesToHex(buf));
   }
 
@@ -160,15 +156,14 @@ public class AdafruitSSD1306
     this.command(SSD1306_SETHIGHCOLUMN | 0x0);
     this.command(SSD1306_SETSTARTLINE | 0x0);
 
-    byte[] buf = new byte[17];
-    buf[0] = SSD_Data_Mode;
+    byte[] buf = new byte[16];
     int p = 0;
 
     for (int i = 0; i < buffer.length; i += 16) {
-      for (int x = 1; x <= 16; x++)
+      for (int x = 0; x < 16; x++)
         buf[x] = (byte) (buffer[p++] & 0xFF);
 
-      disp.write(address, buf, 0, buf.length);
+      disp.write(SSD_Data_Mode, buf, 0, buf.length);
 
       if ("true".equals(System.getProperty("verbose", "false")))
         System.out.println(bytesToHex(buf));
