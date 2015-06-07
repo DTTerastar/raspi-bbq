@@ -74,6 +74,9 @@ public class AdafruitSSD1306
     this.buffer = new int[this.width * this.pages];
     clear();
 
+    if ("true".equals(System.getProperty("verbose", "false")))
+      System.out.println(this.pages);
+
     bus = I2CFactory.getInstance(I2CBus.BUS_1);
     disp = bus.getDevice(address);
   }
@@ -89,12 +92,17 @@ public class AdafruitSSD1306
   }
 
   private void command(int c) throws IOException {
-    byte[] data = new byte[]{0x00, (byte) c};
+    byte[] data = new byte[]{0x00, (byte) (c & 0xFF)};
+    disp.write(address, data, 0, data.length);
+  }
+
+  private void command(int c, int d) throws IOException {
+    byte[] data = new byte[]{0x00, (byte) (c & 0xFF), (byte) (d & 0xFF)};
     disp.write(address, data, 0, data.length);
   }
 
   public void data(int c) throws IOException {
-    byte[] data = new byte[] { 0x40, (byte)c };
+    byte[] data = new byte[]{0x40, (byte) (c & 0xFF)};
     disp.write(address, data, 0, data.length);
   }
 
@@ -130,36 +138,19 @@ public class AdafruitSSD1306
   {
     // 128x32 pixel specific initialization.
     this.command(SSD1306_DISPLAYOFF);          // 0xAE
-    this.command(SSD1306_SETDISPLAYCLOCKDIV);  // 0xD5
-    this.command(0x80);                        // the suggested ratio 0x80
-    this.command(SSD1306_SETMULTIPLEX);        // 0xA8
-    this.command(0x3F);
-    this.command(SSD1306_SETDISPLAYOFFSET);    // 0xD3
-    this.command(0x0);                         // no offset
+
+    this.command(SSD1306_SETDISPLAYCLOCKDIV, 0x80);
+    this.command(SSD1306_SETMULTIPLEX, 0x3F);
+    this.command(SSD1306_SETDISPLAYOFFSET, 0x0);                         // no offset
     this.command(SSD1306_SETSTARTLINE | 0x0);  // line //0
-    this.command(SSD1306_CHARGEPUMP);          // 0x8D
-    if (this.vccstate == SSD1306_EXTERNALVCC)
-      this.command(0x10);
-    else
-      this.command(0x14);
-    this.command(SSD1306_MEMORYMODE);          // 0x20
-    this.command(0x00);                        // 0x0 act like ks0108
+    this.command(SSD1306_CHARGEPUMP, this.vccstate == SSD1306_EXTERNALVCC ? 0x10 : 0x14);
+    this.command(SSD1306_MEMORYMODE, 0x00);                        // 0x0 act like ks0108
     this.command(SSD1306_SEGREMAP | 0x1);
     this.command(SSD1306_COMSCANDEC);
-    this.command(SSD1306_SETCOMPINS);          // 0xDA
-    this.command(0x12);
-    this.command(SSD1306_SETCONTRAST);         // 0x81
-    if (this.vccstate == SSD1306_EXTERNALVCC)
-      this.command(0x9F);
-    else
-      this.command(0xCF);
-    this.command(SSD1306_SETPRECHARGE);        // 0xd9
-    if (this.vccstate == SSD1306_EXTERNALVCC)
-      this.command(0x22);
-    else
-      this.command(0xF1);
-    this.command(SSD1306_SETVCOMDETECT);       // 0xDB
-    this.command(0x40);
+    this.command(SSD1306_SETCOMPINS, 0x12);
+    this.command(SSD1306_SETCONTRAST, this.vccstate == SSD1306_EXTERNALVCC ? 0x9F : 0xCF);
+    this.command(SSD1306_SETPRECHARGE, this.vccstate == SSD1306_EXTERNALVCC ? 0x22 : 0xF1);
+    this.command(SSD1306_SETVCOMDETECT, 0x40);
     this.command(SSD1306_DISPLAYALLON_RESUME); // 0xA4
     this.command(SSD1306_NORMALDISPLAY);       // 0xA6
   }

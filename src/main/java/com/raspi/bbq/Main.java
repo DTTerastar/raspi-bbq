@@ -400,7 +400,7 @@ public class Main {
 
             oled.setBuffer(sb.getScreenBuffer());
             oled.display();
-            
+
             if ("true".equals(System.getProperty("verbose", "false")))
                 System.out.println("Done.");
         } catch (Exception e) {
