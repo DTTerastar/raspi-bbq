@@ -13,6 +13,10 @@ import java.io.IOException;
  */
 public class AdafruitSSD1306
 {
+
+  public final static int SSD_Command_Mode            = 0x00;  /* C0 and DC bit are 0         */
+  public final static int SSD_Data_Mode               = 0x40;  /* C0 bit is 0 and DC bit is 1 */
+
   public final static int SSD1306_I2C_ADDRESS         = 0x3C; // 011110+SA0+RW - 0x3C or 0x3D
   public final static int SSD1306_SETCONTRAST         = 0x81;
   public final static int SSD1306_DISPLAYALLON_RESUME = 0xA4;
@@ -93,26 +97,21 @@ public class AdafruitSSD1306
   }
 
   private void command(int c) throws IOException {
-    byte[] buf = new byte[]{0x00, (byte) (c & 0xFF)};
+    byte[] buf = new byte[]{SSD_Command_Mode, (byte) (c & 0xFF)};
     disp.write(address, buf, 0, buf.length);
     System.out.println(bytesToHex(buf));
   }
 
   private void command(int c, int d) throws IOException {
-    byte[] buf = new byte[]{0x00, (byte) (c & 0xFF), (byte) (d & 0xFF)};
+    byte[] buf = new byte[]{SSD_Command_Mode, (byte) (c & 0xFF), (byte) (d & 0xFF)};
     disp.write(address, buf, 0, buf.length);
     System.out.println(bytesToHex(buf));
   }
 
   private void command(int c, int d, int e) throws IOException {
-    byte[] buf = new byte[]{0x00, (byte) (c & 0xFF), (byte) (d & 0xFF), (byte) (e & 0xFF)};
+    byte[] buf = new byte[]{SSD_Command_Mode, (byte) (c & 0xFF), (byte) (d & 0xFF), (byte) (e & 0xFF)};
     disp.write(address, buf, 0, buf.length);
     System.out.println(bytesToHex(buf));
-  }
-
-  public void data(int c) throws IOException {
-    byte[] data = new byte[]{0x40, (byte) (c & 0xFF)};
-    disp.write(address, data, 0, data.length);
   }
 
   private void reset()
@@ -191,7 +190,7 @@ public class AdafruitSSD1306
     this.command(SSD1306_SETSTARTLINE | 0x0);
 
     byte[] buf = new byte[17];
-    buf[0] = 0x00;
+    buf[0] = SSD_Data_Mode;
     int p = 0;
 
     for (int i = 0; i < buffer.length; i += 16) {
