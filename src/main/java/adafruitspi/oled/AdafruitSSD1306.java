@@ -218,6 +218,7 @@ public class AdafruitSSD1306
         buf[i + 1] = (byte) (this.buffer[i] & 0xFF);
         i++;
       }
+      i--;
       write(buf);
     }
   }
