@@ -2,15 +2,10 @@ package adafruitspi.oled;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
-import com.pi4j.io.gpio.GpioPinDigitalOutput;
-import com.pi4j.io.gpio.Pin;
-import com.pi4j.io.gpio.PinState;
-import com.pi4j.io.gpio.RaspiPin;
 
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
 import com.pi4j.io.i2c.I2CFactory;
-import com.pi4j.wiringpi.Spi;
 
 import java.io.IOException;
 
@@ -114,14 +109,6 @@ public class AdafruitSSD1306
     disp.write(address, data, 0, data.length);
   }
 
-  private void write(int[] data) throws IOException {
-    byte[] buf = new byte[data.length];
-    for (int i = 0; i < data.length; i++)
-      buf[i] = (byte) (data[i] & 0xFF);
-
-    disp.write(address, buf, 0, data.length);
-  }
-
   private void command(int c) throws IOException {
     this.write(new byte[] { 0b0,(byte)c });
   }
@@ -223,8 +210,11 @@ public class AdafruitSSD1306
     this.command(0); // Page start address. (0 = reset)
     this.command(this.pages - 1); // Page end address.
     // Write buffer data.
-    //   Set DC high for data.
-    this.write(this.buffer);
+    byte[] buf = new byte[this.buffer.length + 1];
+    buf[0] = 0x40;
+    for (int i = 0; i < this.buffer.length; i++)
+      buf[i + 1] = (byte) (this.buffer[i] & 0xFF);
+    write(buf);
   }
 
   /**
