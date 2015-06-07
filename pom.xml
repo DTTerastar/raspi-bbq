@@ -4,7 +4,7 @@
     <artifactId>raspi-bbq</artifactId>
     <version>1</version>
     <packaging>jar</packaging>
-    
+
     <properties>
         <pi4j.version>0.0.5</pi4j.version>
         <compiler-plugin.version>3.1</compiler-plugin.version>
@@ -35,7 +35,6 @@
             </exclusions>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -43,8 +42,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler-plugin.version}</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                 </configuration>
             </plugin>
             <plugin>
