@@ -1,7 +1,6 @@
 package adafruitspi.oled;
 
 import com.pi4j.io.gpio.GpioController;
-import com.pi4j.io.gpio.GpioFactory;
 
 import com.pi4j.io.i2c.I2CBus;
 import com.pi4j.io.i2c.I2CDevice;
@@ -50,14 +49,12 @@ public class AdafruitSSD1306
   public final static int SSD1306_VERTICAL_AND_RIGHT_HORIZONTAL_SCROLL = 0x29;
   public final static int SSD1306_VERTICAL_AND_LEFT_HORIZONTAL_SCROLL  = 0x2A;
 
-  //private final static int SPI_PORT   =  0;
-
-  private int width  = 128;
-  private int height =  32;
+  private int width;
+  private int height;
   private int address;
-  private int clockHertz = 8000000; // 8 MHz
-  private int vccstate = 0;
-  private int pages = 0;
+  private int vccstate;
+  private int pages;
+
   private int[] buffer = null;
 
   private static GpioController gpio;
@@ -65,14 +62,9 @@ public class AdafruitSSD1306
   private I2CBus bus;
   private I2CDevice disp;
 
-  /**
-   * @param w Buffer width (pixles).  Default is 128
-   * @param h Buffer height (pixels). Default is  32
-   */
   public AdafruitSSD1306(int w, int h) throws IOException {
     initSSD1306(w, h, SSD1306_I2C_ADDRESS);
   }
-  
 
   private void initSSD1306(int w, int h, int address) throws IOException {
     this.width = w;
@@ -84,16 +76,10 @@ public class AdafruitSSD1306
 
     bus = I2CFactory.getInstance(I2CBus.BUS_1);
     disp = bus.getDevice(address);
-    gpio = GpioFactory.getInstance();
   }
 
-  public void shutdown()
-  {
-    gpio.shutdown();
-  }
-
-  public void setBuffer(int[] buffer)
-  {
+  public void setBuffer(int[] buffer) throws Exception {
+    if (this.buffer.length != buffer.length) throw new Exception("Invalid buffer length!");
     this.buffer = buffer;
   }
 
@@ -102,15 +88,14 @@ public class AdafruitSSD1306
     return buffer;
   }
 
-  private final int MASK = 0x80; // MSBFIRST, 0x80 = 0&10000000
-//private final int MASK = 0x01; // LSBFIRST
-
-  private void write(byte[] data) throws IOException {
+  private void command(int c) throws IOException {
+    byte[] data = new byte[]{0x00, (byte) c};
     disp.write(address, data, 0, data.length);
   }
 
-  private void command(int c) throws IOException {
-    this.write(new byte[] { 0x00,(byte)c });
+  public void data(int c) throws IOException {
+    byte[] data = new byte[] { 0x40, (byte)c };
+    disp.write(address, data, 0, data.length);
   }
 
   private void reset()
@@ -122,10 +107,6 @@ public class AdafruitSSD1306
     sleep(10);
     // Set reset high again.
     //resetOutput.high();
-  }
-
-  public void data(int c) throws IOException {
-    this.write(new byte[] { 0x40, (byte)c });
   }
 
   /**
@@ -209,17 +190,12 @@ public class AdafruitSSD1306
     this.command(SSD1306_PAGEADDR);
     this.command(0); // Page start address. (0 = reset)
     this.command(this.pages - 1); // Page end address.
-    // Write buffer data.
-
-    for (int i = 0; i < buffer.length; i++) {
+    for (int i = 0; i < buffer.length;) {
       byte[] buf = new byte[17];
       buf[0] = 0x40;
-      for (int x = 0; x < 16; x++) {
-        buf[x + 1] = (byte) (this.buffer[i] & 0xFF);
-        i++;
-      }
-      i--;
-      write(buf);
+      for (int x = 0; x < 16; x++)
+        buf[x + 1] = (byte) (this.buffer[i++] & 0xFF);
+      disp.write(address, buf, 0, buf.length);
     }
   }
 

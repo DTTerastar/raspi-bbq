@@ -26,7 +26,7 @@ public class Main {
             oled.begin();
             oled.clear();
 //  oled.display();
-            ScreenBuffer sb = new ScreenBuffer(128, 32);
+            ScreenBuffer sb = new ScreenBuffer(128, 64);
             sb.clear(ScreenBuffer.Mode.BLACK_ON_WHITE);
             if ("true".equals(System.getProperty("verbose", "false")))
                 System.out.println("Screenbuffer ready...");
@@ -400,11 +400,10 @@ public class Main {
 
             oled.setBuffer(sb.getScreenBuffer());
             oled.display();
-
-            oled.shutdown();
+            
             if ("true".equals(System.getProperty("verbose", "false")))
                 System.out.println("Done.");
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
