@@ -136,8 +136,6 @@ public class AdafruitSSD1306
     // Reset and initialize display.
     this.reset();
     this.initialize();
-    // Turn on the display.
-    this.command(SSD1306_DISPLAYON);
   }
 
   private void initialize() throws IOException
@@ -160,6 +158,8 @@ public class AdafruitSSD1306
     this.command(SSD1306_NORMALDISPLAY);       // 0xA6
     this.command(SSD1306_COLUMNADDR, 0, 127);
     this.command(SSD1306_PAGEADDR, 0, 7);
+    this.command(SSD1306_SETCONTRAST, 0xF1);
+    this.command(SSD1306_DISPLAYON);
   }
 
   public void clear()
