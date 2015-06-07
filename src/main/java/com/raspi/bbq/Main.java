@@ -16,7 +16,7 @@ public class Main {
         if ("true".equals(System.getProperty("verbose", "false")))
             System.out.println("Starting...");
         try {
-            AdafruitSSD1306 oled = new AdafruitSSD1306(128, 32); // Default pins (look in the AdafruitSSD1306 code)
+            AdafruitSSD1306 oled = new AdafruitSSD1306(128,64); // Default pins (look in the AdafruitSSD1306 code)
 
             if ("true".equals(System.getProperty("verbose", "false"))) {
                 System.out.println("Object created, default pins...");
