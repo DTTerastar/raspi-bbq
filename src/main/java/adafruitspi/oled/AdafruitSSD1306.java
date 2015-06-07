@@ -215,7 +215,7 @@ public class AdafruitSSD1306
       byte[] buf = new byte[17];
       buf[0] = 0x40;
       for (int x = 0; x < 16; x++) {
-        buf[i + 1] = (byte) (this.buffer[i] & 0xFF);
+        buf[x + 1] = (byte) (this.buffer[i] & 0xFF);
         i++;
       }
       i--;
