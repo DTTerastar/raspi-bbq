@@ -140,22 +140,21 @@ public class AdafruitSSD1306
     this.command(SSD1306_DISPLAYON);
   }
 
-  private void initialize() throws IOException // SPI, 128x32
+  private void initialize() throws IOException
   {
-    // 128x32 pixel specific initialization.
-    this.command(SSD1306_DISPLAYOFF);          // 0xAE
-
-    this.command(SSD1306_SETDISPLAYCLOCKDIV, 0x80);
+    this.command(SSD1306_DISPLAYOFF);
     this.command(SSD1306_SETMULTIPLEX, 0x3F);
-    this.command(SSD1306_SETDISPLAYOFFSET, 0x0);                         // no offset
-    this.command(SSD1306_SETSTARTLINE | 0x0);  // line //0
-    this.command(SSD1306_CHARGEPUMP, this.vccstate == SSD1306_EXTERNALVCC ? 0x10 : 0x14);
-    this.command(SSD1306_MEMORYMODE, 0x00);                        // 0x0 act like ks0108
+    this.command(SSD1306_CHARGEPUMP, 0x14);
+    this.command(SSD1306_MEMORYMODE, 0x00);
+    this.command(SSD1306_SETDISPLAYCLOCKDIV, 0x80);
+    this.command(SSD1306_SETDISPLAYOFFSET, 0x00);
+    this.command(SSD1306_SETSTARTLINE | 0x0);
+    // use this two commands to flip display
     this.command(SSD1306_SEGREMAP | 0x1);
     this.command(SSD1306_COMSCANDEC);
+
     this.command(SSD1306_SETCOMPINS, 0x12);
-    this.command(SSD1306_SETCONTRAST, this.vccstate == SSD1306_EXTERNALVCC ? 0x9F : 0xCF);
-    this.command(SSD1306_SETPRECHARGE, this.vccstate == SSD1306_EXTERNALVCC ? 0x22 : 0xF1);
+    this.command(SSD1306_SETPRECHARGE, 0xF1);
     this.command(SSD1306_SETVCOMDETECT, 0x40);
     this.command(SSD1306_DISPLAYALLON_RESUME); // 0xA4
     this.command(SSD1306_NORMALDISPLAY);       // 0xA6
