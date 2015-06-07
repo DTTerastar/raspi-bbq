@@ -210,11 +210,16 @@ public class AdafruitSSD1306
     this.command(0); // Page start address. (0 = reset)
     this.command(this.pages - 1); // Page end address.
     // Write buffer data.
-    byte[] buf = new byte[this.buffer.length + 1];
-    buf[0] = 0x40;
-    for (int i = 0; i < this.buffer.length; i++)
-      buf[i + 1] = (byte) (this.buffer[i] & 0xFF);
-    write(buf);
+
+    for (int i = 0; i < (width * height / 8); i++) {
+      byte[] buf = new byte[17];
+      buf[0] = 0x40;
+      for (int x = 0; x < 16; x++) {
+        buf[i + 1] = (byte) (this.buffer[i] & 0xFF);
+        i++;
+      }
+      write(buf);
+    }
   }
 
   /**
