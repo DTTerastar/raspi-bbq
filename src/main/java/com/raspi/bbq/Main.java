@@ -23,8 +23,10 @@ public class Main {
 
             System.out.println("Loadng...");
             ImgInterface img = new RasPi();
-            sb.image(img, 0, 0, ScreenBuffer.Mode.BLACK_ON_WHITE);
-            sb.text("BBQ!", 64 - (4), 30, ScreenBuffer.Mode.BLACK_ON_WHITE);
+            String bbq = "BBQ!";
+            int blen = sb.strlen(bbq);
+            sb.image(img, 2, 2, ScreenBuffer.Mode.WHITE_ON_BLACK);
+            sb.text(bbq, 64 - blen / 2, 30, ScreenBuffer.Mode.BLACK_ON_WHITE);
             oled.setBuffer(sb.getScreenBuffer());
             oled.display();
 
@@ -33,11 +35,9 @@ public class Main {
             while (true) {
                 temp.read();
 
-                // Centered text
-                System.out.println("More text...");
-                String txt = temp.getTempF() + "F";
+                String txt = "Pit " + temp.getTempF() + "F";
                 int len = sb.strlen(txt);
-                sb.text(txt, 64 - (len / 2), 0);
+                sb.text(txt, 128 - len, 10);
                 oled.setBuffer(sb.getScreenBuffer());
                 oled.display();
                 try {
