@@ -138,7 +138,7 @@ public class AdafruitSSD1306
   }
 
   public void data(int c) throws IOException {
-    this.write(new byte[] { (byte)c });
+    this.write(new byte[] { 0x50, (byte)c });
   }
 
   /**
