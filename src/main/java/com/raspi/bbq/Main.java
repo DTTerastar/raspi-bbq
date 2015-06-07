@@ -1,13 +1,12 @@
 package com.raspi.bbq;
 
-import adafruitspi.oled.AdafruitSSD1306;
+import adafruitspi.oled.SSD1306I2C;
 import adafruitspi.oled.ScreenBuffer;
 import adafruitspi.oled.img.ImgInterface;
-import adafruitspi.oled.img.Java32x32;
+import adafruitspi.oled.img.RasPi;
 
 import java.awt.Point;
 import java.awt.Polygon;
-import java.io.IOException;
 
 public class Main {
 
@@ -16,7 +15,7 @@ public class Main {
         if ("true".equals(System.getProperty("verbose", "false")))
             System.out.println("Starting...");
         try {
-            AdafruitSSD1306 oled = new AdafruitSSD1306(128, 64); // Default pins (look in the AdafruitSSD1306 code)
+            SSD1306I2C oled = new SSD1306I2C(128, 64); // Default pins (look in the SSD1306I2C code)
 
             if ("true".equals(System.getProperty("verbose", "false"))) {
                 System.out.println("Object created, default pins...");
@@ -38,9 +37,9 @@ public class Main {
 
 
             System.out.println("Let's go...");
-            ImgInterface img = new Java32x32();
+            ImgInterface img = new RasPi();
             sb.image(img, 0, 0, ScreenBuffer.Mode.BLACK_ON_WHITE);
-            sb.text("I speak Java!", 36, 20, ScreenBuffer.Mode.BLACK_ON_WHITE);
+            sb.text("BBQ!", 50, 20, ScreenBuffer.Mode.BLACK_ON_WHITE);
 
             oled.setBuffer(sb.getScreenBuffer());
             oled.display();

@@ -9,7 +9,7 @@ import java.io.IOException;
 /**
  * SSD1306, small OLED screen. SPI. 128x32
  */
-public class AdafruitSSD1306
+public class SSD1306I2C
 {
   public final static int SSD_Command_Mode            = 0x00;  /* C0 and DC bit are 0         */
   public final static int SSD_Data_Mode               = 0x40;  /* C0 bit is 0 and DC bit is 1 */
@@ -67,7 +67,7 @@ public class AdafruitSSD1306
   private I2CBus bus;
   private I2CDevice disp;
 
-  public AdafruitSSD1306(int w, int h) throws IOException {
+  public SSD1306I2C(int w, int h) throws IOException {
     initSSD1306(w, h, SSD1306_I2C_ADDRESS);
   }
 
