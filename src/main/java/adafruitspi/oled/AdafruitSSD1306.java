@@ -93,18 +93,21 @@ public class AdafruitSSD1306
   }
 
   private void command(int c) throws IOException {
-    byte[] data = new byte[]{0x00, (byte) (c & 0xFF)};
-    disp.write(address, data, 0, data.length);
+    byte[] buf = new byte[]{0x00, (byte) (c & 0xFF)};
+    disp.write(address, buf, 0, buf.length);
+    System.out.println(bytesToHex(buf));
   }
 
   private void command(int c, int d) throws IOException {
-    byte[] data = new byte[]{0x00, (byte) (c & 0xFF), (byte) (d & 0xFF)};
-    disp.write(address, data, 0, data.length);
+    byte[] buf = new byte[]{0x00, (byte) (c & 0xFF), (byte) (d & 0xFF)};
+    disp.write(address, buf, 0, buf.length);
+    System.out.println(bytesToHex(buf));
   }
 
   private void command(int c, int d, int e) throws IOException {
-    byte[] data = new byte[]{0x00, (byte) (c & 0xFF), (byte) (d & 0xFF), (byte) (e & 0xFF)};
-    disp.write(address, data, 0, data.length);
+    byte[] buf = new byte[]{0x00, (byte) (c & 0xFF), (byte) (d & 0xFF), (byte) (e & 0xFF)};
+    disp.write(address, buf, 0, buf.length);
+    System.out.println(bytesToHex(buf));
   }
 
   public void data(int c) throws IOException {
@@ -188,7 +191,7 @@ public class AdafruitSSD1306
     this.command(SSD1306_SETSTARTLINE | 0x0);
 
     byte[] buf = new byte[17];
-    buf[0] = 0x40;
+    buf[0] = 0x00;
     int p = 0;
 
     for (int i = 0; i < buffer.length; i += 16) {

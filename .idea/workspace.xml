@@ -88,8 +88,8 @@
       <file leaf-file-name="AdafruitSSD1306.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/adafruitspi/oled/AdafruitSSD1306.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.86827457">
-              <caret line="200" column="3" selection-start-line="200" selection-start-column="3" selection-end-line="200" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.6159555">
+              <caret line="193" column="16" selection-start-line="193" selection-start-column="16" selection-end-line="193" selection-end-column="16" />
               <folding>
                 <element signature="e#3506#3507#0" expanded="true" />
                 <element signature="e#3529#3530#0" expanded="true" />
@@ -638,8 +638,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/adafruitspi/oled/AdafruitSSD1306.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.86827457">
-          <caret line="200" column="3" selection-start-line="200" selection-start-column="3" selection-end-line="200" selection-end-column="3" />
+        <state vertical-scroll-proportion="0.6159555">
+          <caret line="193" column="16" selection-start-line="193" selection-start-column="16" selection-end-line="193" selection-end-column="16" />
           <folding>
             <element signature="e#3506#3507#0" expanded="true" />
             <element signature="e#3529#3530#0" expanded="true" />
