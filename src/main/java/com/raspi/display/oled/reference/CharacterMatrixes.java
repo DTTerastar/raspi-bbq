@@ -1,4 +1,4 @@
-package adafruitspi.oled.utils;
+package com.raspi.display.oled.reference;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,7 +1,7 @@
-package adafruitspi.oled;
+package com.raspi.display.oled;
 
-import adafruitspi.oled.img.ImgInterface;
-import adafruitspi.oled.utils.CharacterMatrixes;
+import com.raspi.display.oled.reference.ImgInterface;
+import com.raspi.display.oled.reference.CharacterMatrixes;
 
 import java.awt.Point;
 import java.awt.Polygon;

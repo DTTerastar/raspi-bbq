@@ -1,4 +1,4 @@
-package adafruitspi.oled.img;
+package com.raspi.display.oled.reference;
 
 public class RasPi implements ImgInterface
 {
