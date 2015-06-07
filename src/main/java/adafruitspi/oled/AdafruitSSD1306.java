@@ -159,6 +159,7 @@ public class AdafruitSSD1306
     this.command(SSD1306_COLUMNADDR, 0, 127);
     this.command(SSD1306_PAGEADDR, 0, 7);
     this.command(SSD1306_SETCONTRAST, 0xF1);
+    this.command(SSD1306_DEACTIVATE_SCROLL);
     this.command(SSD1306_DISPLAYON);
   }
 
@@ -182,16 +183,20 @@ public class AdafruitSSD1306
    * Write display buffer to physical display.
    */
   public void display() throws IOException {
-    this.command(SSD1306_SETLOWCOLUMN);
-    this.command(SSD1306_SETHIGHCOLUMN);
-    this.command(SSD1306_SETSTARTLINE);
-    for (int i = 0; i < buffer.length; ) {
-      byte[] buf = new byte[17];
-      buf[0] = 0x40;
-      for (int x = 0; x < 16; x++)
-        buf[x + 1] = (byte) (this.buffer[i++] & 0xFF);
+    this.command(SSD1306_SETLOWCOLUMN | 0x0);
+    this.command(SSD1306_SETHIGHCOLUMN | 0x0);
+    this.command(SSD1306_SETSTARTLINE | 0x0);
+
+    byte[] buf = new byte[17];
+    buf[0] = 0x40;
+    int p = 0;
+
+    for (int i = 0; i < buffer.length; i += 16) {
+      for (int x = 1; x <= 16; x++)
+        buf[x] = (byte) (buffer[p++] & 0xFF);
+
       disp.write(address, buf, 0, buf.length);
-      System.out.println("[RX] " + bytesToHex(buf));
+      System.out.println(bytesToHex(buf));
     }
   }
 
