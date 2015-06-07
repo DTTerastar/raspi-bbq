@@ -40,6 +40,7 @@ public class AdafruitSSD1306
   public final static int SSD1306_EXTERNALVCC         = 0x1;
   public final static int SSD1306_SWITCHCAPVCC        = 0x2;
 
+
   // Scrolling constants
   public final static int SSD1306_ACTIVATE_SCROLL                      = 0x2F;
   public final static int SSD1306_DEACTIVATE_SCROLL                    = 0x2E;
@@ -101,6 +102,11 @@ public class AdafruitSSD1306
     disp.write(address, data, 0, data.length);
   }
 
+  private void command(int c, int d, int e) throws IOException {
+    byte[] data = new byte[]{0x00, (byte) (c & 0xFF), (byte) (d & 0xFF), (byte) (e & 0xFF)};
+    disp.write(address, data, 0, data.length);
+  }
+
   public void data(int c) throws IOException {
     byte[] data = new byte[]{0x40, (byte) (c & 0xFF)};
     disp.write(address, data, 0, data.length);
@@ -153,6 +159,8 @@ public class AdafruitSSD1306
     this.command(SSD1306_SETVCOMDETECT, 0x40);
     this.command(SSD1306_DISPLAYALLON_RESUME); // 0xA4
     this.command(SSD1306_NORMALDISPLAY);       // 0xA6
+    this.command(SSD1306_COLUMNADDR, 0, 127);
+    this.command(SSD1306_PAGEADDR, 0, 7);
   }
 
   public void clear()
@@ -175,13 +183,10 @@ public class AdafruitSSD1306
    * Write display buffer to physical display.
    */
   public void display() throws IOException {
-    this.command(SSD1306_COLUMNADDR);
-    this.command(0); // Column start address. (0 = reset)
-    this.command(this.width - 1); // Column end address.
-    this.command(SSD1306_PAGEADDR);
-    this.command(0); // Page start address. (0 = reset)
-    this.command(this.pages - 1); // Page end address.
-    for (int i = 0; i < buffer.length;) {
+    this.command(SSD1306_SETLOWCOLUMN);
+    this.command(SSD1306_SETHIGHCOLUMN);
+    this.command(SSD1306_SETSTARTLINE);
+    for (int i = 0; i < buffer.length; ) {
       byte[] buf = new byte[17];
       buf[0] = 0x40;
       for (int x = 0; x < 16; x++)
