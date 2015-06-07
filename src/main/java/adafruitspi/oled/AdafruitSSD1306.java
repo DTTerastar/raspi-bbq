@@ -110,7 +110,7 @@ public class AdafruitSSD1306
   }
 
   private void command(int c) throws IOException {
-    this.write(new byte[] { 0b0,(byte)c });
+    this.write(new byte[] { 0x00,(byte)c });
   }
 
   private void reset()
@@ -125,7 +125,7 @@ public class AdafruitSSD1306
   }
 
   public void data(int c) throws IOException {
-    this.write(new byte[] { 0x50, (byte)c });
+    this.write(new byte[] { 0x40, (byte)c });
   }
 
   /**
@@ -211,7 +211,7 @@ public class AdafruitSSD1306
     this.command(this.pages - 1); // Page end address.
     // Write buffer data.
 
-    for (int i = 0; i < (width * height / 8); i++) {
+    for (int i = 0; i < buffer.length; i++) {
       byte[] buf = new byte[17];
       buf[0] = 0x40;
       for (int x = 0; x < 16; x++) {
