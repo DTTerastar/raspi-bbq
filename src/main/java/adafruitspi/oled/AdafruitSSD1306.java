@@ -123,7 +123,7 @@ public class AdafruitSSD1306
   }
 
   private void command(int c) throws IOException {
-    this.write(new byte[] { (byte)c });
+    this.write(new byte[] { 0b0,(byte)c });
   }
 
   private void reset()
