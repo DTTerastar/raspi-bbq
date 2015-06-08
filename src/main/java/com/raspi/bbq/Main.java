@@ -29,7 +29,7 @@ public class Main {
             String bbq = "BBQ!";
             int blen = bf.strlen(bbq);
             sb.image(img, 2, 2, ScreenBuffer.Mode.WHITE_ON_BLACK);
-            sb.text(bf, bbq, 64 - blen / 2, 60, ScreenBuffer.Mode.BLACK_ON_WHITE);
+            sb.text(bf, bbq, 64 - blen / 2, 40, ScreenBuffer.Mode.BLACK_ON_WHITE);
             oled.setBuffer(sb.getScreenBuffer());
             oled.display();
             sleep(10000);
@@ -40,9 +40,9 @@ public class Main {
                 temp.read();
 
                 sb.text(bf, "Pit          ", 1, 27);
-                String txt = Math.round(temp.getTempF()) + "F";
+                String txt = " " + Math.round(temp.getTempF()) + "F";
                 int len = bf.strlen(txt);
-                sb.text(bf, txt, 128 - len, 27);
+                sb.text(bf, txt, 127 - len, 27);
                 oled.setBuffer(sb.getScreenBuffer());
                 oled.display();
                 sleep(1000);

@@ -2842,8 +2842,8 @@ public class Verdana20 extends BitmapFont {
     public Verdana20() {
         super( "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~",
                 27, //  Character height
-                4, //  Width, in pixels, of space character
-                1, // Space between chars
+                6, //  Width, in pixels, of space character
+                2, // Space between chars
                 verdana_20ptDescriptors, //  Character descriptor array
                 verdana_20ptBitmaps //  Character bitmap array);
         );
