@@ -122,7 +122,7 @@ public class ScreenBuffer
 
     public void text(BitmapFont bf, String txt, int xPx, int yPx)
     {
-        text(bf, txt, xPx, yPx, Mode.BLACK_ON_WHITE);
+        text(bf, txt, xPx, yPx, Mode.WHITE_ON_BLACK);
     }
     public void text(BitmapFont bf, String txt, int xPx, int yPx, Mode mode) {
         int xProgress = xPx;

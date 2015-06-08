@@ -24,7 +24,7 @@ public class Main {
             sb.clear(ScreenBuffer.Mode.BLACK_ON_WHITE);
 
             BitmapFont bf = new Verdana20();
-            System.out.println("Loadng...");
+            System.out.println("Loading...");
             ImgInterface img = new RasPi();
             String bbq = "BBQ!";
             int blen = bf.strlen(bbq);
@@ -34,13 +34,13 @@ public class Main {
             oled.display();
             sleep(10000);
 
-            sb.clear(ScreenBuffer.Mode.BLACK_ON_WHITE);
+            sb.clear(ScreenBuffer.Mode.WHITE_ON_BLACK);
             MAX6675 temp = new MAX6675();
             while (true) {
                 temp.read();
 
-                sb.text(bf, "Pit          ",0,27);
-                String txt = temp.getTempF() + "F";
+                sb.text(bf, "Pit          ", 1, 27);
+                String txt = Math.round(temp.getTempF()) + "F";
                 int len = bf.strlen(txt);
                 sb.text(bf, txt, 128 - len, 27);
                 oled.setBuffer(sb.getScreenBuffer());
