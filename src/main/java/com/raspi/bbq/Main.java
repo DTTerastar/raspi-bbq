@@ -2,8 +2,10 @@ package com.raspi.bbq;
 
 import com.raspi.display.oled.SSD1306I2C;
 import com.raspi.display.oled.ScreenBuffer;
+import com.raspi.display.oled.reference.BitmapFont;
 import com.raspi.display.oled.reference.ImgInterface;
 import com.raspi.display.oled.reference.RasPi;
+import com.raspi.display.oled.reference.Verdana20;
 import com.raspi.sensor.MAX6675;
 
 public class Main {
@@ -21,12 +23,13 @@ public class Main {
             ScreenBuffer sb = new ScreenBuffer(128, 64);
             sb.clear(ScreenBuffer.Mode.BLACK_ON_WHITE);
 
+            BitmapFont bf = new Verdana20();
             System.out.println("Loadng...");
             ImgInterface img = new RasPi();
             String bbq = "BBQ!";
-            int blen = sb.strlen(bbq);
+            int blen = bf.strlen(bbq);
             sb.image(img, 2, 2, ScreenBuffer.Mode.WHITE_ON_BLACK);
-            sb.text(bbq, 64 - blen / 2, 30, ScreenBuffer.Mode.BLACK_ON_WHITE);
+            sb.text(bf, bbq, 64 - blen / 2, 30, ScreenBuffer.Mode.BLACK_ON_WHITE);
             oled.setBuffer(sb.getScreenBuffer());
             oled.display();
 
@@ -36,8 +39,8 @@ public class Main {
                 temp.read();
 
                 String txt = "Pit " + temp.getTempF() + "F";
-                int len = sb.strlen(txt);
-                sb.text(txt, 128 - len, 10);
+                int len = bf.strlen(txt);
+                sb.text(bf, txt, 128 - len, 27);
                 oled.setBuffer(sb.getScreenBuffer());
                 oled.display();
                 try {

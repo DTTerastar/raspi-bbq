@@ -1,5 +1,6 @@
 package com.raspi.display.oled;
 
+import com.raspi.display.oled.reference.BitmapFont;
 import com.raspi.display.oled.reference.ImgInterface;
 import com.raspi.display.oled.reference.CharacterMatrixes;
 
@@ -116,6 +117,39 @@ public class ScreenBuffer
             {
                 System.out.println("Character not found for the OLED [" + c + "]");
             }
+        }
+    }
+
+    public void text(BitmapFont bf, String txt, int xPx, int yPx)
+    {
+        text(bf, txt, xPx, yPx, Mode.WHITE_ON_BLACK);
+    }
+    public void text(BitmapFont bf, String txt, int xPx, int yPx, Mode mode) {
+        int xProgress = xPx;
+        for (int i = 0; i < txt.length(); i++)           // For each character of the string to display
+        {
+            char c = txt.charAt(i);
+            int index = bf.getIndex(c);
+            if (index >= 0) {
+                int[] desc = bf.getDescriptors()[index];
+                int[] matrix = bf.getBitmaps();
+                for (int x = 0; x < desc[0]; x++) // Each COLUMN of the matrix
+                {
+                    for (int y = 0; y < bf.getCharHeight(); y++) {
+                        int l = (y + yPx - (bf.getCharHeight() - 1));
+                        if (l >= 0 && l < this.h && xProgress >= 0 && xProgress < this.w) {
+                            int i1 = matrix[desc[1] + (x / 8) + (y * (int) Math.ceil(desc[0] / 8.0))];
+                            Boolean on = ((i1 >> (7 - (x % 8))) & 0x01) == 0x01;
+                            screenMatrix[l][xProgress] = (on == (mode == Mode.WHITE_ON_BLACK) ? 'X' : ' ');
+                        }
+                    }
+                    xProgress++;
+                }
+            } else {
+                if (c == ' ') xProgress += bf.getWidthSpace() * 2;
+                System.out.println("Character not found for the OLED [" + c + "]");
+            }
+            xProgress += bf.getWidthSpace();
         }
     }
 
@@ -297,6 +331,7 @@ public class ScreenBuffer
     {
         image(img, topLeftX, topLeftY, Mode.WHITE_ON_BLACK);
     }
+
     public void image(ImgInterface img, int topLeftX, int topLeftY, Mode mode)
     {
         int w = img.getW();
