@@ -29,29 +29,35 @@ public class Main {
             String bbq = "BBQ!";
             int blen = bf.strlen(bbq);
             sb.image(img, 2, 2, ScreenBuffer.Mode.WHITE_ON_BLACK);
-            sb.text(bf, bbq, 64 - blen / 2, 30, ScreenBuffer.Mode.BLACK_ON_WHITE);
+            sb.text(bf, bbq, 64 - blen / 2, 60, ScreenBuffer.Mode.BLACK_ON_WHITE);
             oled.setBuffer(sb.getScreenBuffer());
             oled.display();
+            sleep(10000);
 
+            sb.clear(ScreenBuffer.Mode.BLACK_ON_WHITE);
             MAX6675 temp = new MAX6675();
-
             while (true) {
                 temp.read();
 
-                String txt = "Pit " + temp.getTempF() + "F";
+                sb.text(bf, "Pit          ",0,27);
+                String txt = temp.getTempF() + "F";
                 int len = bf.strlen(txt);
                 sb.text(bf, txt, 128 - len, 27);
                 oled.setBuffer(sb.getScreenBuffer());
                 oled.display();
-                try {
-                    Thread.sleep(1000);
-                } catch (Exception ex) {
-                }
+                sleep(1000);
             }
 //
             //System.out.println("Done.");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void sleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (Exception ex) {
         }
     }
 }
