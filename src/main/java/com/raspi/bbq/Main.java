@@ -8,6 +8,8 @@ import com.raspi.display.oled.reference.RasPi;
 import com.raspi.display.oled.reference.Verdana20;
 import com.raspi.sensor.MAX6675;
 
+import java.net.Inet4Address;
+
 public class Main {
 
     @SuppressWarnings("oracle.jdeveloper.java.insufficient-catch-block")
@@ -29,7 +31,7 @@ public class Main {
             String bbq = "BBQ!";
             int blen = bf.strlen(bbq);
             sb.image(img, 2, 2, ScreenBuffer.Mode.WHITE_ON_BLACK);
-            sb.text(bf, bbq, 64 - blen / 2, 40, ScreenBuffer.Mode.BLACK_ON_WHITE);
+            sb.text(bf, bbq, 80 - blen / 2, 40, ScreenBuffer.Mode.BLACK_ON_WHITE);
             oled.setBuffer(sb.getScreenBuffer());
             oled.display();
             sleep(10000);
@@ -44,6 +46,10 @@ public class Main {
                 int len = bf.strlen(txt);
                 sb.text(bf, txt, 127 - len, 27);
                 oled.setBuffer(sb.getScreenBuffer());
+
+                String ip = Inet4Address.getLocalHost().getHostAddress();
+                sb.text(ip, 128 - sb.strlen(ip), 64);
+
                 oled.display();
                 sleep(1000);
             }
