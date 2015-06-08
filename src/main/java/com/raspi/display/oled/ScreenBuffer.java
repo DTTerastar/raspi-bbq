@@ -143,14 +143,15 @@ public class ScreenBuffer
                     xProgress++;
                 }
             } else {
-                if (c == ' ')
+                if (c == ' ') {
                     for (int x = 0; x < bf.getWidthSpace(); x++) {
                         for (int y = 0; y < bf.getCharHeight(); y++) {
                             setPixel(bf, yPx, mode, xProgress, y, false);
                         }
                         xProgress++;
                     }
-                System.out.println("Character not found for the OLED [" + c + "]");
+                } else
+                    System.out.println("Character not found for the OLED [" + c + "]");
             }
             for (int x = 0; x < bf.getSpacing(); x++) {
                 for (int y = 0; y < bf.getCharHeight(); y++) {
