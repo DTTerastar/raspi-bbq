@@ -122,7 +122,7 @@ public class ScreenBuffer
 
     public void text(BitmapFont bf, String txt, int xPx, int yPx)
     {
-        text(bf, txt, xPx, yPx, Mode.WHITE_ON_BLACK);
+        text(bf, txt, xPx, yPx, Mode.BLACK_ON_WHITE);
     }
     public void text(BitmapFont bf, String txt, int xPx, int yPx, Mode mode) {
         int xProgress = xPx;
@@ -136,21 +136,35 @@ public class ScreenBuffer
                 for (int x = 0; x < desc[0]; x++) // Each COLUMN of the matrix
                 {
                     for (int y = 0; y < bf.getCharHeight(); y++) {
-                        int l = (y + yPx - (bf.getCharHeight() - 1));
-                        if (l >= 0 && l < this.h && xProgress >= 0 && xProgress < this.w) {
-                            int i1 = matrix[desc[1] + (x / 8) + (y * (int) Math.ceil(desc[0] / 8.0))];
-                            Boolean on = ((i1 >> (7 - (x % 8))) & 0x01) == 0x01;
-                            screenMatrix[l][xProgress] = (on == (mode == Mode.WHITE_ON_BLACK) ? 'X' : ' ');
-                        }
+                        int i1 = matrix[desc[1] + (x / 8) + (y * (int) Math.ceil(desc[0] / 8.0))];
+                        Boolean on = ((i1 >> (7 - (x % 8))) & 0x01) == 0x01;
+                        setPixel(bf, yPx, mode, xProgress, y, on);
                     }
                     xProgress++;
                 }
             } else {
-                if (c == ' ') xProgress += bf.getWidthSpace() * 2;
+                if (c == ' ')
+                    for (int x = 0; x < bf.getWidthSpace(); x++) {
+                        for (int y = 0; y < bf.getCharHeight(); y++) {
+                            setPixel(bf, yPx, mode, xProgress, y, false);
+                        }
+                        xProgress++;
+                    }
                 System.out.println("Character not found for the OLED [" + c + "]");
             }
-            xProgress += bf.getWidthSpace();
+            for (int x = 0; x < bf.getSpacing(); x++) {
+                for (int y = 0; y < bf.getCharHeight(); y++) {
+                    setPixel(bf, yPx, mode, xProgress, y, false);
+                }
+                xProgress++;
+            }
         }
+    }
+
+    private void setPixel(BitmapFont bf, int yPx, Mode mode, int xProgress, int y, Boolean on) {
+        int l = (y + yPx - (bf.getCharHeight() - 1));
+        if (l >= 0 && l < this.h && xProgress >= 0 && xProgress < this.w)
+            screenMatrix[l][xProgress] = (on == (mode == Mode.WHITE_ON_BLACK) ? 'X' : ' ');
     }
 
     private char invert(char c)

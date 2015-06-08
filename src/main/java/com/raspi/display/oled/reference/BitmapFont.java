@@ -10,6 +10,7 @@ public class BitmapFont {
     private final int widthSpace;
     private final int[][] descriptors;
     private final int[] bitmaps;
+    private int spacing;
 
     public int getCharHeight() {
         return charHeight;
@@ -27,10 +28,11 @@ public class BitmapFont {
         return bitmaps;
     }
 
-    public BitmapFont(String characters, int charHeight, int widthSpace, int[][] descriptors, int[] bitmaps) {
+    public BitmapFont(String characters, int charHeight, int widthSpace, int spacing, int[][] descriptors, int[] bitmaps) {
         this.characters = characters;
         this.charHeight = charHeight;
         this.widthSpace = widthSpace;
+        this.spacing = spacing;
         this.descriptors = descriptors;
         this.bitmaps = bitmaps;
     }
@@ -40,12 +42,12 @@ public class BitmapFont {
         for (int i = 0; i < txt.length(); i++) {
             char current = txt.charAt(i);
             int index = characters.indexOf(current);
-            len += (i == 0 ? 0 : widthSpace);
+            len += (i == 0 ? 0 : spacing);
             if (index >= 0)
                 len += getDescriptors()[index][0];
             else {
                 if (current == ' ')
-                    len += widthSpace * 2;
+                    len += widthSpace;
             }
         }
         return len;
@@ -53,5 +55,9 @@ public class BitmapFont {
 
     public int getIndex(char c) {
         return characters.indexOf(c);
+    }
+
+    public int getSpacing() {
+        return spacing;
     }
 }
