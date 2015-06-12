@@ -30,7 +30,7 @@ public class Main {
 
             Display display = new Display(m);
             MAX6675 temp = new MAX6675();
-            SimpleKalman filter = new SimpleKalman(0.5, 1e-4);
+            SimpleKalman filter = new SimpleKalman(1, 1e-3);
             while (true) {
                 int running = Seconds.secondsBetween(d, DateTime.now()).getSeconds() / 5;
                 if (running > 0)

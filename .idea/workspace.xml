@@ -32,7 +32,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/com/raspi/bbq/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.15235457">
-              <caret line="32" column="54" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
+              <caret line="32" column="52" selection-start-line="32" selection-start-column="52" selection-end-line="32" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -1335,7 +1335,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/raspi/bbq/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15235457">
-          <caret line="32" column="54" selection-start-line="32" selection-start-column="54" selection-end-line="32" selection-end-column="54" />
+          <caret line="32" column="52" selection-start-line="32" selection-start-column="52" selection-end-line="32" selection-end-column="52" />
           <folding />
         </state>
       </provider>
