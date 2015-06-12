@@ -48,7 +48,7 @@ public class Main {
                         m.setDisplayState(DisplayState.PID);
                 temp.read();
                 double tempF = filter.filter(temp.getTempF());
-                System.out.println(Math.round(temp.getTempF()) + "F " + Math.round(tempF) + "F Err:" + pid.getError() + " TErr:" + pid.getTotalError());
+                System.out.println(Math.round(temp.getTempF()) + "F " + Math.round(tempF) + "F   "+pid.getOutput()+"    Err: " + pid.getError() + " TErr: " + pid.getErrorTotal() + " VErr: " + pid.getErrorVelocity());
                 m.setPitTemp((int) Math.round(tempF));
                 oled.setBuffer(display.getScreenBuffer().getBitmap());
                 oled.display();
