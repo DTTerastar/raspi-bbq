@@ -5,16 +5,17 @@ package com.raspi.utils;
  */
 public class SimpleKalman {
 
-    double varInput = 1e-9f;
-    double varProcess = 1e-9f;
+    double varInput;
+    double varProcess;
     double Pc = 0.0f;
     double G = 0.0f;
     double P = 1.0f;
     double Xp = 0.0f;
     double Xe = 0.0f;
 
-    public SimpleKalman(float varInput) {
+    public SimpleKalman(double varInput, double varProcess) {
         this.varInput = varInput;
+        this.varProcess = varProcess;
     }
 
     public double filter(double input) {

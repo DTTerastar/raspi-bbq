@@ -40,7 +40,7 @@ public class Main {
 
             sb.clear(ScreenBuffer.Mode.WHITE_ON_BLACK);
             MAX6675 temp = new MAX6675();
-            SimpleKalman filt = new SimpleKalman(1.2f);
+            SimpleKalman filt = new SimpleKalman(1.2, 1e-6);
             while (true) {
                 temp.read();
 
