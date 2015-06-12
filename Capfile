@@ -25,3 +25,16 @@ require 'capistrano/deploy'
 # Load custom tasks from `lib/capistrano/tasks` if you have any defined
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
 require 'capistrano/mvn'
+
+desc "package and deploy artifact"
+task :deploy do
+    artifact = nil
+    run_locally do
+        mvn :package
+        artifact = mvn_project_artifact_path
+    end
+
+    on roles(:all) do
+        deploy artifact, "/deploy/to/#{basename(artifact)}"
+    end
+end

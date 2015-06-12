@@ -4,7 +4,9 @@
     <bookmark url="file://$PROJECT_DIR$/src/main/java/com/raspi/display/oled/ScreenBuffer.java" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="76d765c6-583c-4346-a9c4-4d89bb8fa544" name="Default" comment="" />
+    <list default="true" id="76d765c6-583c-4346-a9c4-4d89bb8fa544" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Capfile" afterPath="$PROJECT_DIR$/Capfile" />
+    </list>
     <ignored path="raspi-bbq.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
