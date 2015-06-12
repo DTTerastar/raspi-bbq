@@ -9,7 +9,7 @@ public class Model {
 
     DisplayState ds = DisplayState.Splash;
     int pitTemp = 100;
-    int pitDesired = 225;
+    int pitDesired = 100;
     double fan;
 
     public int getPitSetpoint() {
