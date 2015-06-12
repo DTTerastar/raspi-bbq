@@ -40,6 +40,8 @@ public class Main {
                         m.setDisplayState(DisplayState.Graph);
                 temp.read();
                 double tempF = filter.filter(temp.getTempF());
+
+                System.out.println(temp.getTempF() + "F filt: " + tempF + "F");
                 m.setPitTemp((int) Math.round(tempF));
                 oled.setBuffer(display.getScreenBuffer().getBitmap());
                 oled.display();

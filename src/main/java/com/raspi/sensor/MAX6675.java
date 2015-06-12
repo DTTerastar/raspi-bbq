@@ -49,7 +49,7 @@ public class MAX6675 implements java.lang.AutoCloseable {
         _isThermocoupleConnected = (raw & 0x0004) == 0; //check tc open err bit d2
         _tempC = (raw >> 3) / 4.0;
         _tempF = ((_tempC) * 9 / 5.0) + 32;
-        System.out.println(_tempC + "C " + _tempF + "F");
+        //System.out.println(_tempC + "C " + _tempF + "F");
         chipSelectOutput.high();
     }
 
