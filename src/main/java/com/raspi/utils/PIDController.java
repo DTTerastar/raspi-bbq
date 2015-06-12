@@ -54,7 +54,6 @@ public class PIDController {
 
     }
 
-
     /**
      * Read the input, calculate the output accordingly, and write to the output.
      * This should only be called by the PIDTask
@@ -67,6 +66,9 @@ public class PIDController {
 
             if (canReadAgain!=null && Instant.now().isBefore(canReadAgain)) return;
             canReadAgain = Instant.now().plus(1000);
+
+            // Set the current error to the previous error for the next cycle
+            m_prevError = m_error;
 
             // Calculate the error signal
             m_error = m_setpoint - m_input;
@@ -93,9 +95,6 @@ public class PIDController {
 
             // Perform the primary PID calculation
             m_result = ((m_P * m_error) + (m_I * m_totalError) + (m_D * (m_error - m_prevError)));
-
-            // Set the current error to the previous error for the next cycle
-            m_prevError = m_error;
 
             // Make sure the final result is within bounds
             if (m_result > m_maximumOutput) {
