@@ -18,7 +18,6 @@ public class Display {
     ScreenBuffer graph = new ScreenBuffer(128, 64);
     BitmapFont bf = new Verdana20();
 
-    DisplayState ds = DisplayState.Splash;
     private Model m;
 
     public Display(Model m) {
@@ -27,33 +26,24 @@ public class Display {
         DrawProgress(progress);
     }
 
-    public DisplayState getDisplayState() {
-        return ds;
-    }
-
-    public void setDisplayState(DisplayState ds) {
-        this.ds = ds;
-    }
-
     private void DrawProgress(ScreenBuffer sb) {
         sb.clear(ScreenBuffer.Mode.WHITE_ON_BLACK);
-        String txt = " " + Math.round(m.getTempF()) + "F";
-        sb.text(bf, "Pit          ", 1, 27);
-        int len = bf.strlen(txt);
-        sb.text(bf, txt, 127 - len, 27);
-        String ip = null;
-        drawIP(sb);
-
+        sb.text_left(bf, "Pit", 1, 25);
+        sb.text_right(bf, m.getPitTemp() + "F", 127, 25, ScreenBuffer.Mode.WHITE_ON_BLACK);
+        sb.text_left(bf, "Set", 1, 47);
+        sb.text_right(bf, m.getPitDesired() + "F", 127, 47, ScreenBuffer.Mode.WHITE_ON_BLACK);
+        sb.text_left("Fan " + Math.round(m.getFan() * 100) + "%", 1, 64, ScreenBuffer.Mode.WHITE_ON_BLACK);
+        drawIP(sb, ScreenBuffer.Mode.WHITE_ON_BLACK);
     }
 
-    private void drawIP(ScreenBuffer sb) {
+    private void drawIP(ScreenBuffer sb, ScreenBuffer.Mode mode) {
         String ip;
         try {
-            ip = misc.GetLocalAddress().toString();
+            ip = misc.GetLocalAddress().toString().substring(1);
         } catch (SocketException e) {
             ip = "Unknown";
         }
-        sb.text(ip, 128 - sb.strlen(ip), 64);
+        sb.text_right(ip, 128, 64, mode);
     }
 
     private void DrawSplash(ScreenBuffer sb) {
@@ -62,12 +52,12 @@ public class Display {
         sb.image(img, 2, 2, ScreenBuffer.Mode.WHITE_ON_BLACK);
         String bbq = "BBQ!";
         sb.text_center(bf, bbq, 80, 40, ScreenBuffer.Mode.BLACK_ON_WHITE);
-        drawIP(sb);
+        drawIP(sb, ScreenBuffer.Mode.BLACK_ON_WHITE);
     }
 
     public ScreenBuffer getScreenBuffer() {
-        switch (ds) {
-            case Progress:
+        switch (m.getDisplayState()) {
+            case Params:
                 return progress;
             case Graph:
                 return graph;

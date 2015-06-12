@@ -13,7 +13,23 @@ public class ScreenBuffer
 
     public void text_center(BitmapFont bf, String txt, int xPx, int yPx, Mode mode) {
         int strlen = bf.strlen(txt);
-        text(bf, txt, xPx - (strlen / 2), yPx, mode);
+        text_left(bf, txt, xPx - (strlen / 2), yPx, mode);
+    }
+
+    public void text_right(BitmapFont bf, String txt, int xPx, int yPx, Mode mode) {
+        int strlen = bf.strlen(txt);
+        text_left(bf, txt, xPx - strlen, yPx, mode);
+    }
+
+
+    public void text_center(String txt, int xPx, int yPx, Mode mode) {
+        int strlen = strlen(txt);
+        text_left(txt, xPx - (strlen / 2), yPx, mode);
+    }
+
+    public void text_right(String txt, int xPx, int yPx, Mode mode) {
+        int strlen = strlen(txt);
+        text_left(txt, xPx - strlen, yPx, mode);
     }
 
     public enum Mode
@@ -83,17 +99,17 @@ public class ScreenBuffer
     }
 
     /**
-     * Draw a text on the screenMatrix
+     * Draw a text_left on the screenMatrix
      *
      * @param txt Character String to display
      * @param xPx Bottom left X origin in Pixels (top left is 0,0)
      * @param yPx Bottom left Y origin in Pixels (top left is 0,0)
      */
-    public void text(String txt, int xPx, int yPx)
+    public void text_left(String txt, int xPx, int yPx)
     {
-        text(txt, xPx, yPx, Mode.WHITE_ON_BLACK);
+        text_left(txt, xPx, yPx, Mode.WHITE_ON_BLACK);
     }
-    public void text(String txt, int xPx, int yPx, Mode mode)
+    public void text_left(String txt, int xPx, int yPx, Mode mode)
     {
         int xProgress = xPx;
         for (int i=0; i<txt.length(); i++)           // For each character of the string to display
@@ -125,11 +141,11 @@ public class ScreenBuffer
         }
     }
 
-    public void text(BitmapFont bf, String txt, int xPx, int yPx)
+    public void text_left(BitmapFont bf, String txt, int xPx, int yPx)
     {
-        text(bf, txt, xPx, yPx, Mode.WHITE_ON_BLACK);
+        text_left(bf, txt, xPx, yPx, Mode.WHITE_ON_BLACK);
     }
-    public void text(BitmapFont bf, String txt, int xPx, int yPx, Mode mode) {
+    public void text_left(BitmapFont bf, String txt, int xPx, int yPx, Mode mode) {
         int xProgress = xPx;
         for (int i = 0; i < txt.length(); i++)           // For each character of the string to display
         {

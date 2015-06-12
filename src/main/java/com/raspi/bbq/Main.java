@@ -2,6 +2,7 @@ package com.raspi.bbq;
 
 import com.raspi.Model;
 import com.raspi.display.oled.Display;
+import com.raspi.display.oled.DisplayState;
 import com.raspi.display.oled.SSD1306I2C;
 import com.raspi.sensor.MAX6675;
 import com.raspi.utils.SimpleKalman;
@@ -19,13 +20,14 @@ public class Main {
             oled.clear();
 
             Model m = new Model();
+            m.setDisplayState(DisplayState.Params);
             Display display = new Display(m);
             MAX6675 temp = new MAX6675();
             SimpleKalman filter = new SimpleKalman(1.2, 1e-4);
             while (true) {
                 temp.read();
                 double tempF = filter.filter(temp.getTempF());
-                m.setTempF(tempF);
+                m.setPitTemp((int)Math.round(tempF));
                 oled.setBuffer(display.getScreenBuffer().getBitmap());
                 oled.display();
             }
