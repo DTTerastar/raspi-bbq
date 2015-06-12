@@ -1,9 +1,6 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
-require "capistrano-maven"
-set(:mvn_version, "3.0.5") # Maven version to build project
-
 set :application, 'Raspberry Pi BBQ'
 set :repo_url, 'https://github.com/DTTerastar/raspi-bbq.git'
 
