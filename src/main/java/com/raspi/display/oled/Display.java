@@ -23,7 +23,6 @@ public class Display {
     public Display(Model m) {
         this.m = m;
         DrawSplash(splash);
-        DrawProgress(progress);
     }
 
     private void DrawProgress(ScreenBuffer sb) {
@@ -50,8 +49,9 @@ public class Display {
         sb.clear(ScreenBuffer.Mode.BLACK_ON_WHITE);
         ImgInterface img = new RasPi();
         sb.image(img, 2, 2, ScreenBuffer.Mode.WHITE_ON_BLACK);
-        String bbq = "BBQ!";
-        sb.text_center(bf, bbq, 80, 40, ScreenBuffer.Mode.BLACK_ON_WHITE);
+        sb.text_center(bf, "BBQ!", 80, 40, ScreenBuffer.Mode.BLACK_ON_WHITE);
+
+        sb.text_left("Fan " + Math.round(m.getFan() * 100) + "%", 1, 64, ScreenBuffer.Mode.WHITE_ON_BLACK);
         drawIP(sb, ScreenBuffer.Mode.BLACK_ON_WHITE);
     }
 
@@ -60,9 +60,16 @@ public class Display {
             case Params:
                 return progress;
             case Graph:
+                DrawGraph(graph);
                 return graph;
             default:
+                DrawSplash(splash);
                 return splash;
         }
+    }
+
+    private void DrawGraph(ScreenBuffer sb) {
+        sb.text_left("Fan " + Math.round(m.getFan() * 100) + "%", 1, 64, ScreenBuffer.Mode.WHITE_ON_BLACK);
+        drawIP(sb, ScreenBuffer.Mode.WHITE_ON_BLACK);
     }
 }
