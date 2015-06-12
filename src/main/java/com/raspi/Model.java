@@ -12,7 +12,7 @@ public class Model {
     int pitDesired = 225;
     double fan;
 
-    public int getPitDesired() {
+    public int getPitSetpoint() {
         return pitDesired;
     }
 

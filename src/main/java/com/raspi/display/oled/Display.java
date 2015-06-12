@@ -30,7 +30,7 @@ public class Display {
         sb.text_left(bf, "Pit", 1, 25);
         sb.text_right(bf, m.getPitTemp() + "F", 127, 25, ScreenBuffer.Mode.Standard);
         sb.text_left(bf, "Set", 1, 50);
-        sb.text_right(bf, m.getPitDesired() + "F", 127, 50, ScreenBuffer.Mode.Standard);
+        sb.text_right(bf, m.getPitSetpoint() + "F", 127, 50, ScreenBuffer.Mode.Standard);
         sb.text_left("Fan " + Math.round(m.getFan() * 100) + "%", 1, 64, ScreenBuffer.Mode.Standard);
         drawIP(sb, ScreenBuffer.Mode.Standard);
     }
