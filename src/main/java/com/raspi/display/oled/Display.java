@@ -30,8 +30,8 @@ public class Display {
         sb.clear(ScreenBuffer.Mode.WHITE_ON_BLACK);
         sb.text_left(bf, "Pit", 1, 25);
         sb.text_right(bf, m.getPitTemp() + "F", 127, 25, ScreenBuffer.Mode.WHITE_ON_BLACK);
-        sb.text_left(bf, "Set", 1, 47);
-        sb.text_right(bf, m.getPitDesired() + "F", 127, 47, ScreenBuffer.Mode.WHITE_ON_BLACK);
+        sb.text_left(bf, "Set", 1, 50);
+        sb.text_right(bf, m.getPitDesired() + "F", 127, 50, ScreenBuffer.Mode.WHITE_ON_BLACK);
         sb.text_left("Fan " + Math.round(m.getFan() * 100) + "%", 1, 64, ScreenBuffer.Mode.WHITE_ON_BLACK);
         drawIP(sb, ScreenBuffer.Mode.WHITE_ON_BLACK);
     }
