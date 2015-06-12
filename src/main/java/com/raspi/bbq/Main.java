@@ -7,6 +7,8 @@ import com.raspi.display.oled.reference.ImgInterface;
 import com.raspi.display.oled.reference.RasPi;
 import com.raspi.display.oled.reference.Verdana20;
 import com.raspi.sensor.MAX6675;
+import com.raspi.utils.SimpleKalman;
+import com.raspi.utils.misc;
 
 import java.net.Inet4Address;
 
@@ -38,16 +40,18 @@ public class Main {
 
             sb.clear(ScreenBuffer.Mode.WHITE_ON_BLACK);
             MAX6675 temp = new MAX6675();
+            SimpleKalman filt = new SimpleKalman(1.2f);
             while (true) {
                 temp.read();
 
                 sb.text(bf, "Pit          ", 1, 27);
-                String txt = " " + Math.round(temp.getTempF()) + "F";
+                double tempF = filt.filter(temp.getTempF());
+                String txt = " " + Math.round(tempF) + "F";
                 int len = bf.strlen(txt);
                 sb.text(bf, txt, 127 - len, 27);
                 oled.setBuffer(sb.getScreenBuffer());
 
-                String ip = Inet4Address.getLocalHost().getHostAddress();
+                String ip = misc.GetLocalAddress().toString();
                 sb.text(ip, 128 - sb.strlen(ip), 64);
 
                 oled.display();
