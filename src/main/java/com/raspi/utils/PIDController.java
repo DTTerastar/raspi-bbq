@@ -16,6 +16,9 @@
 
 package com.raspi.utils;
 
+import org.joda.time.Instant;
+import org.joda.time.ReadableInstant;
+
 public class PIDController {
 
     private double m_P;                 // factor for "proportional" control
@@ -35,6 +38,7 @@ public class PIDController {
     private double m_error = 0.0;
     private double m_result = 0.0;
     private long output;
+    private ReadableInstant canReadAgain;
 
     /**
      * Allocate a PID object with the given constants for P, I, D
@@ -60,6 +64,9 @@ public class PIDController {
 
         // If enabled then proceed into controller calculations
         if (m_enabled) {
+
+            if (canReadAgain!=null && Instant.now().isBefore(canReadAgain)) return;
+            canReadAgain = Instant.now().plus(1000);
 
             // Calculate the error signal
             m_error = m_setpoint - m_input;
