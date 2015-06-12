@@ -22,4 +22,13 @@ public class DisplayTest {
         m.setDisplayState(DisplayState.Params);
         d.getScreenBuffer().dumpScreen();
     }
+
+    @Test
+    public void graph() throws Exception {
+        Model m = new Model();
+        m.setFan(1);
+        Display d = new Display(m);
+        m.setDisplayState(DisplayState.Graph);
+        d.getScreenBuffer().dumpScreen();
+    }
 }
