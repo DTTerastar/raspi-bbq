@@ -26,15 +26,18 @@ public class Main {
 
             Calendar c = Calendar.getInstance();
             DateTime d = new DateTime();
-            Model m = new Model();
+            PIDController pid = new PIDController(1e-1, 1e-2, 1e-3);
+            pid.setOutputRange(0, 1);
+            pid.setInputRange(0, 1000);
+            pid.setTolerance(0.01);
+            pid.enable();
+
+            Model m = new Model(pid);
+            m.setPitSetpoint(100);
 
             Display display = new Display(m);
             MAX6675 temp = new MAX6675();
-            PIDController pid = new PIDController(1e-9,0.5,1);
-            pid.setSetpoint(m.getPitSetpoint());
-            pid.setOutputRange(0,1);
-            pid.setInputRange(0,1000);
-            pid.enable();
+
             SimpleKalman filter = new SimpleKalman(1, 1e-3);
             while (true) {
                 int running = Seconds.secondsBetween(d, DateTime.now()).getSeconds() / 5;
@@ -42,12 +45,10 @@ public class Main {
                     if (running % 2 == 1)
                         m.setDisplayState(DisplayState.Params);
                     else
-                        m.setDisplayState(DisplayState.Graph);
+                        m.setDisplayState(DisplayState.PID);
                 temp.read();
                 double tempF = filter.filter(temp.getTempF());
-                pid.getInput(tempF);
-                m.setFan(pid.performPID());
-                System.out.println(temp.getTempF() + "F filt: " + tempF + "F");
+                System.out.println(Math.round(temp.getTempF()) + "F " + Math.round(tempF) + "F Err:" + pid.getError() + " TErr:" + pid.getTotalError());
                 m.setPitTemp((int) Math.round(tempF));
                 oled.setBuffer(display.getScreenBuffer().getBitmap());
                 oled.display();

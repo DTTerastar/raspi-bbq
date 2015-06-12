@@ -1,6 +1,7 @@
 package com.raspi;
 
 import com.raspi.display.oled.DisplayState;
+import com.raspi.utils.PIDController;
 
 /**
  * Created by Darrell on 6/12/2015.
@@ -11,21 +12,24 @@ public class Model {
     int pitTemp = 100;
     int pitDesired = 100;
     double fan;
+    public PIDController pid;
+
+    public Model(PIDController pid) {
+
+        this.pid = pid;
+    }
 
     public int getPitSetpoint() {
         return pitDesired;
     }
 
-    public void setPitDesired(int pitDesired) {
+    public void setPitSetpoint(int pitDesired) {
         this.pitDesired = pitDesired;
+        pid.setSetpoint(pitDesired);
     }
 
     public double getFan() {
-        return fan;
-    }
-
-    public void setFan(double fan) {
-        this.fan = fan;
+        return pid.performPID();
     }
 
     public int getPitTemp() {
@@ -34,6 +38,7 @@ public class Model {
 
     public void setPitTemp(int pitTemp) {
         this.pitTemp = pitTemp;
+        pid.getInput(pitTemp);
     }
 
     public DisplayState getDisplayState() {

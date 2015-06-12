@@ -60,16 +60,17 @@ public class Display {
             case Params:
                 DrawProgress(progress);
                 return progress;
-            case Graph:
-                DrawGraph(graph);
+            case PID:
+                drawPID(graph);
                 return graph;
             default:
                 return splash;
         }
     }
 
-    private void DrawGraph(ScreenBuffer sb) {
+    private void drawPID(ScreenBuffer sb) {
         sb.clear(ScreenBuffer.Mode.Standard);
+        sb.text_left("I " + Math.round(m.getFan() * 100) + "%", 1, 64, ScreenBuffer.Mode.Standard);
         sb.text_left("Fan " + Math.round(m.getFan() * 100) + "%", 1, 64, ScreenBuffer.Mode.Standard);
         drawIP(sb, ScreenBuffer.Mode.Standard);
     }
