@@ -7,6 +7,9 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.Pin;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
+import org.joda.time.DateTime;
+import org.joda.time.Instant;
+import org.joda.time.Seconds;
 
 import java.io.IOException;
 
@@ -16,6 +19,7 @@ public class MAX6675 implements java.lang.AutoCloseable {
     private GpioPinDigitalOutput chipSelectOutput;
     private boolean _isThermocoupleConnected;
     private double _tempF, _tempC;
+    private Instant canReadAgain;
 
     @SuppressWarnings("unused")
     public MAX6675() throws InterruptedException, IOException {
@@ -42,6 +46,7 @@ public class MAX6675 implements java.lang.AutoCloseable {
     }
 
     public void read() {
+        if (canReadAgain!=null && Instant.now().isBefore(canReadAgain)) return;
         chipSelectOutput.low();
         byte[] packet = new byte[]{0x0b, 0x0b};
         Spi.wiringPiSPIDataRW(0, packet, 2);
@@ -51,6 +56,7 @@ public class MAX6675 implements java.lang.AutoCloseable {
         _tempF = ((_tempC) * 9 / 5.0) + 32;
         //System.out.println(_tempC + "C " + _tempF + "F");
         chipSelectOutput.high();
+        canReadAgain = Instant.now().plus(100);
     }
 
     @Override
