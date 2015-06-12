@@ -34,6 +34,7 @@ public class Main {
             pid.setSetpoint(m.getPitSetpoint());
             pid.setOutputRange(0,1);
             pid.setInputRange(0,1000);
+            pid.enable();
             SimpleKalman filter = new SimpleKalman(1, 1e-3);
             while (true) {
                 int running = Seconds.secondsBetween(d, DateTime.now()).getSeconds() / 5;
