@@ -6,6 +6,11 @@ import com.raspi.display.oled.DisplayState;
 import com.raspi.display.oled.SSD1306I2C;
 import com.raspi.sensor.MAX6675;
 import com.raspi.utils.SimpleKalman;
+import org.joda.time.DateTime;
+import org.joda.time.Seconds;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class Main {
 
@@ -19,20 +24,26 @@ public class Main {
             oled.begin();
             oled.clear();
 
+            Calendar c = Calendar.getInstance();
+            DateTime d = new DateTime();
             Model m = new Model();
-            m.setDisplayState(DisplayState.Params);
+
             Display display = new Display(m);
             MAX6675 temp = new MAX6675();
             SimpleKalman filter = new SimpleKalman(1.2, 1e-4);
             while (true) {
+                int running = Seconds.secondsBetween(d, DateTime.now()).getSeconds() / 5;
+                if (running > 0)
+                    if (running % 2 == 1)
+                        m.setDisplayState(DisplayState.Params);
+                    else
+                        m.setDisplayState(DisplayState.Graph);
                 temp.read();
                 double tempF = filter.filter(temp.getTempF());
-                m.setPitTemp((int)Math.round(tempF));
+                m.setPitTemp((int) Math.round(tempF));
                 oled.setBuffer(display.getScreenBuffer().getBitmap());
                 oled.display();
             }
-//
-            //System.out.println("Done.");
         } catch (Exception e) {
             e.printStackTrace();
         }

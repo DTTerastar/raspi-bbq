@@ -13,7 +13,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="com.pi4j:pi4j-core:1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.pi4j:pi4j-core:1.0" level="project" />
     <orderEntry type="module-library">
       <library name="JUnit4">
         <CLASSES>
@@ -25,5 +24,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.8" level="project" />
+    <orderEntry type="library" name="Maven: com.pi4j:pi4j-core:1.0" level="project" />
   </component>
 </module>
