@@ -1,3 +1,5 @@
+import com.raspi.Model;
+import com.raspi.display.oled.Display;
 import com.raspi.display.oled.ScreenBuffer;
 import com.raspi.display.oled.reference.Verdana20;
 import com.raspi.utils.misc;
@@ -15,21 +17,17 @@ public class ScreenBufferTest {
 
     }
 
-    @Test
-    public void testText() throws Exception {
-        Verdana20 f = new Verdana20();
-        ScreenBuffer sb = new ScreenBuffer(128, 64);
-        sb.text(f, "BLAH BLAH", 64 - f.strlen("BLAH BLAH") / 2, 27);
-        sb.dumpScreen();
-    }
+//    @Test
+//    public void testText() throws Exception {
+//        Verdana20 f = new Verdana20();
+//        ScreenBuffer sb = new ScreenBuffer(128, 64);
+//        sb.text(f, "BLAH BLAH", 64 - f.strlen("BLAH BLAH") / 2, 27);
+//        sb.dumpScreen();
+//    }
 
     @Test
     public void testText1() throws Exception {
-
-        String ip = misc.GetLocalAddress().toString();
-        ScreenBuffer sb = new ScreenBuffer(128, 64);
-        sb.text(ip, 128 - sb.strlen(ip), 64);
-        sb.dumpScreen();
+        Display d = new Display(new Model());
+        d.getScreenBuffer().dumpScreen();
     }
-
 }

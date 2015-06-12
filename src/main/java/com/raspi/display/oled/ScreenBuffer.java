@@ -11,6 +11,11 @@ public class ScreenBuffer
 {
     private final static int WIDTH = 128, HEIGHT = 32; // Default values
 
+    public void text_center(BitmapFont bf, String txt, int xPx, int yPx, Mode mode) {
+        int strlen = bf.strlen(txt);
+        text(bf, txt, xPx - (strlen / 2), yPx, mode);
+    }
+
     public enum Mode
     {
         WHITE_ON_BLACK,
@@ -58,7 +63,7 @@ public class ScreenBuffer
      * Generate and return the screenbuffer from the screenmatrix
      * @return the buffer to display on the OLED
      */
-    public int[] getScreenBuffer()
+    public int[] getBitmap()
     {
         for (int line=0; line<(this.h / 8); line++)
         {
