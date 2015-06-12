@@ -30,7 +30,7 @@ public class Main {
 
             Display display = new Display(m);
             MAX6675 temp = new MAX6675();
-            PIDController pid = new PIDController(1,1,1);
+            PIDController pid = new PIDController(1e-9,0.5,1);
             pid.setSetpoint(m.getPitSetpoint());
             pid.setOutputRange(0,1);
             pid.setInputRange(0,1000);
