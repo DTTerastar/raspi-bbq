@@ -56,7 +56,7 @@ public class MAX6675 implements java.lang.AutoCloseable {
         _tempF = ((_tempC) * 9 / 5.0) + 32;
         //System.out.println(_tempC + "C " + _tempF + "F");
         chipSelectOutput.high();
-        canReadAgain = Instant.now().plus(100);
+        canReadAgain = Instant.now().plus(500);
     }
 
     @Override
