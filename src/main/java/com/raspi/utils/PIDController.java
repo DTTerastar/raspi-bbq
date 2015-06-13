@@ -148,8 +148,8 @@ public class PIDController {
      * @param maximumTotalError the maximum value expected from the total error.
      */
     public void setTotalErrorRange(double minimumTotalError, double maximumTotalError) {
-        m_minimumInput = minimumTotalError;
-        m_maximumInput = maximumTotalError;
+        m_minimumTotalError = minimumTotalError;
+        m_maximumTotalError = maximumTotalError;
     }
 
     /**
