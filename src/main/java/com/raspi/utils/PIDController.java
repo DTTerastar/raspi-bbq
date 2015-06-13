@@ -29,7 +29,6 @@ public class PIDController {
     private double m_minimumOutput = -1.0;      // |minimum output|
     private double m_maximumInput = 0.0;                // maximum input - limit setpoint to this
     private double m_minimumInput = 0.0;                // minimum input - limit setpoint to this
-    private boolean m_continuous = false;       // do the endpoints wrap around? eg. Absolute encoder
     private boolean m_enabled = false;                  //is the pid controller enabled
     private double m_prevError = 0.0;   // the prior sensor input (used to compute velocity)
     private double m_totalError = 0.0; //the sum of the errors for use in the integral calc
@@ -37,7 +36,6 @@ public class PIDController {
     private double m_setpoint = 0.0;
     private double m_error = 0.0;
     private double m_result = 0.0;
-    private long output;
     private ReadableInstant canReadAgain;
 
     /**
@@ -72,19 +70,6 @@ public class PIDController {
 
             // Calculate the error signal
             m_error = m_setpoint - m_input;
-
-            // If continuous is set to true allow wrap around
-            if (m_continuous) {
-                if (Math.abs(m_error) >
-                        (m_maximumInput - m_minimumInput) / 2) {
-                    if (m_error > 0) {
-                        m_error = m_error - m_maximumInput + m_minimumInput;
-                    } else {
-                        m_error = m_error +
-                                m_maximumInput - m_minimumInput;
-                    }
-                }
-            }
 
             /* Integrate the errors as long as the upcoming integrator does
                not exceed the minimum and maximum output thresholds */
@@ -140,27 +125,6 @@ public class PIDController {
     public double performPID() {
         calculate();
         return m_result;
-    }
-
-    /**
-     *  Set the PID controller to consider the input to be continuous,
-     *  Rather then using the max and min in as constraints, it considers them to
-     *  be the same point and automatically calculates the shortest route to
-     *  the setpoint.
-     * @param continuous Set to true turns on continuous, false turns off continuous
-     */
-    public void setContinuous(boolean continuous) {
-        m_continuous = continuous;
-    }
-
-    /**
-     *  Set the PID controller to consider the input to be continuous,
-     *  Rather then using the max and min in as constraints, it considers them to
-     *  be the same point and automatically calculates the shortest route to
-     *  the setpoint.
-     */
-    public void setContinuous() {
-        this.setContinuous(true);
     }
 
     /**
