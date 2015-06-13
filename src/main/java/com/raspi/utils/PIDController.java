@@ -29,6 +29,8 @@ public class PIDController {
     private double m_minimumOutput = -1.0;      // |minimum output|
     private double m_maximumInput = 0.0;                // maximum input - limit setpoint to this
     private double m_minimumInput = 0.0;                // minimum input - limit setpoint to this
+    private double m_maximumTotalError = 100.0;                // maximum input - limit setpoint to this
+    private double m_minimumTotalError = -100.0;                // minimum input - limit setpoint to this
     private boolean m_enabled = false;                  //is the pid controller enabled
     private double m_prevError = 0.0;   // the prior sensor input (used to compute velocity)
     private double m_totalError = 0.0; //the sum of the errors for use in the integral calc
@@ -73,7 +75,7 @@ public class PIDController {
 
             /* Integrate the errors as long as the upcoming integrator does
                not exceed the minimum and maximum output thresholds */
-            m_totalError = Math.max(Math.min(m_totalError + m_error, m_maximumOutput), m_minimumOutput);
+            m_totalError = Math.max(Math.min(m_totalError + m_error, m_maximumTotalError), m_minimumTotalError);
 
             // Perform the primary PID calculation
             m_result = Math.max(Math.min(m_P * m_error + m_I * m_totalError + m_D * (m_error - m_prevError), m_maximumOutput), m_minimumOutput);
@@ -131,12 +133,23 @@ public class PIDController {
      * Sets the maximum and minimum values expected from the input.
      *
      * @param minimumInput the minimum value expected from the input
-     * @param maximumInput the maximum value expected from the output
+     * @param maximumInput the maximum value expected from the input
      */
     public void setInputRange(double minimumInput, double maximumInput) {
         m_minimumInput = minimumInput;
         m_maximumInput = maximumInput;
         setSetpoint(m_setpoint);
+    }
+
+    /**
+     * Sets the maximum and minimum values expected from the total error.
+     *
+     * @param minimumTotalError the minimum value expected from the total error.
+     * @param maximumTotalError the maximum value expected from the total error.
+     */
+    public void setTotalErrorRange(double minimumTotalError, double maximumTotalError) {
+        m_minimumInput = minimumTotalError;
+        m_maximumInput = maximumTotalError;
     }
 
     /**
