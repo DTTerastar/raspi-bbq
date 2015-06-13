@@ -213,8 +213,9 @@ public class PIDController {
     }
 
     public synchronized double getErrorVelocity() {
-        int size = al.size() - 1;
-        return (al.get(size) - al.get(0)) / size;
+        int size = al.size();
+        if (size < 2) return 0;
+        return (al.get(size - 1) - al.get(0)) / size;
     }
 
     /**
