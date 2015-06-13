@@ -39,7 +39,7 @@ public class PIDController {
     private double m_tolerance = 0.05;  //the percetage error that is considered on target
     private double m_setpoint = 0.0;
     private double m_error = 0.0;
-    private double m_result = 0.0;
+    private double m_output = 0.0;
     private ReadableInstant canReadAgain;
 
     /**
@@ -84,7 +84,7 @@ public class PIDController {
             //m_totalError = Math.max(Math.min(m_totalError + m_error, m_maximumTotalError), m_minimumTotalError);
 
             // Perform the primary PID calculation
-            m_result = Math.max(Math.min(m_P * m_error + m_I * getErrorTotal() + m_D * getErrorVelocity(), m_maximumOutput), m_minimumOutput);
+            m_output = Math.max(Math.min(m_P * m_error + m_I * getErrorTotal() + m_D * getErrorVelocity(), m_maximumOutput), m_minimumOutput);
         }
     }
 
@@ -134,7 +134,7 @@ public class PIDController {
      */
     public double performPID() {
         calculate();
-        return m_result;
+        return m_output;
     }
 
     /**
@@ -261,7 +261,7 @@ public class PIDController {
         al.clear();
         //m_prevError = 0;
         m_totalError = 0;
-        m_result = 0;
+        m_output = 0;
     }
 
     public void getInput(double input){
@@ -269,6 +269,6 @@ public class PIDController {
     }
 
     public double getOutput() {
-        return m_result;
+        return m_output;
     }
 }
