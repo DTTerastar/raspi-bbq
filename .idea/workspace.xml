@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76d765c6-583c-4346-a9c4-4d89bb8fa544" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/raspi/bbq/Main.java" afterPath="$PROJECT_DIR$/src/main/java/com/raspi/bbq/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/raspi/utils/PIDController.java" afterPath="$PROJECT_DIR$/src/main/java/com/raspi/utils/PIDController.java" />
     </list>
     <ignored path="raspi-bbq.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,31 +28,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/raspi/bbq/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44406196">
+            <state vertical-scroll-proportion="0.0">
               <caret line="35" column="37" selection-start-line="35" selection-start-column="37" selection-end-line="35" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PIDController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PIDController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/raspi/utils/PIDController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="155" column="52" selection-start-line="155" selection-start-column="52" selection-end-line="155" selection-end-column="52" />
+            <state vertical-scroll-proportion="0.5805515">
+              <caret line="260" column="19" selection-start-line="260" selection-start-column="19" selection-end-line="260" selection-end-column="19" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#6837#6838#0" expanded="true" />
-                <element signature="e#6867#6868#0" expanded="true" />
-                <element signature="e#6917#6918#0" expanded="true" />
-                <element signature="e#6952#6953#0" expanded="true" />
-                <element signature="e#7005#7006#0" expanded="true" />
-                <element signature="e#7049#7050#0" expanded="true" />
-                <element signature="e#8346#8347#0" expanded="true" />
-                <element signature="e#8377#8378#0" expanded="true" />
+                <element signature="e#3809#3817#0" expanded="true" />
+                <element signature="e#7013#7014#0" expanded="true" />
+                <element signature="e#7043#7044#0" expanded="true" />
+                <element signature="e#8686#8687#0" expanded="true" />
+                <element signature="e#8717#8718#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -230,8 +227,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/raspi/display/oled/Display.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/raspi/display/oled/DisplayTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/raspi/Model.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/raspi/utils/PIDController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/raspi/bbq/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/raspi/utils/PIDController.java" />
       </list>
     </option>
   </component>
@@ -861,13 +858,13 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286517" sideWeight="0.43541667" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286517" sideWeight="0.43333334" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.42977527" sideWeight="0.15" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3286517" sideWeight="0.56666666" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.42977527" sideWeight="0.85" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42977527" sideWeight="0.85" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1457,29 +1454,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/raspi/utils/PIDController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/raspi/bbq/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="155" column="52" selection-start-line="155" selection-start-column="52" selection-end-line="155" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6837#6838#0" expanded="true" />
-            <element signature="e#6867#6868#0" expanded="true" />
-            <element signature="e#6917#6918#0" expanded="true" />
-            <element signature="e#6952#6953#0" expanded="true" />
-            <element signature="e#7005#7006#0" expanded="true" />
-            <element signature="e#7049#7050#0" expanded="true" />
-            <element signature="e#8346#8347#0" expanded="true" />
-            <element signature="e#8377#8378#0" expanded="true" />
-          </folding>
+          <caret line="35" column="37" selection-start-line="35" selection-start-column="37" selection-end-line="35" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/raspi/bbq/Main.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/raspi/utils/PIDController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44406196">
-          <caret line="35" column="37" selection-start-line="35" selection-start-column="37" selection-end-line="35" selection-end-column="37" />
-          <folding />
+        <state vertical-scroll-proportion="0.5805515">
+          <caret line="260" column="19" selection-start-line="260" selection-start-column="19" selection-end-line="260" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3809#3817#0" expanded="true" />
+            <element signature="e#7013#7014#0" expanded="true" />
+            <element signature="e#7043#7044#0" expanded="true" />
+            <element signature="e#8686#8687#0" expanded="true" />
+            <element signature="e#8717#8718#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -19,6 +19,8 @@ package com.raspi.utils;
 import org.joda.time.Instant;
 import org.joda.time.ReadableInstant;
 
+import java.util.ArrayList;
+
 public class PIDController {
 
     private double m_P;                 // factor for "proportional" control
@@ -32,7 +34,7 @@ public class PIDController {
     private double m_maximumTotalError = 100.0;                // maximum input - limit setpoint to this
     private double m_minimumTotalError = -100.0;                // minimum input - limit setpoint to this
     private boolean m_enabled = false;                  //is the pid controller enabled
-    private double m_prevError = 0.0;   // the prior sensor input (used to compute velocity)
+    //private double m_prevError = 0.0;   // the prior sensor input (used to compute velocity)
     private double m_totalError = 0.0; //the sum of the errors for use in the integral calc
     private double m_tolerance = 0.05;  //the percetage error that is considered on target
     private double m_setpoint = 0.0;
@@ -68,19 +70,25 @@ public class PIDController {
             canReadAgain = Instant.now().plus(1000);
 
             // Set the current error to the previous error for the next cycle
-            m_prevError = m_error;
+            //m_prevError = m_error;
 
             // Calculate the error signal
             m_error = m_setpoint - m_input;
+
+            al.add(m_error);
+            if (al.size() > 32)
+                al.remove(0);
 
             /* Integrate the errors as long as the upcoming integrator does
                not exceed the minimum and maximum output thresholds */
             m_totalError = Math.max(Math.min(m_totalError + m_error, m_maximumTotalError), m_minimumTotalError);
 
             // Perform the primary PID calculation
-            m_result = Math.max(Math.min(m_P * m_error + m_I * m_totalError + m_D * (m_error - m_prevError), m_maximumOutput), m_minimumOutput);
+            m_result = Math.max(Math.min(m_P * m_error + m_I * getErrorTotal() + m_D * getErrorVelocity(), m_maximumOutput), m_minimumOutput);
         }
     }
+
+    ArrayList<Double> al = new ArrayList<Double>();
 
     /**
      * Set the PID Controller gain parameters.
@@ -198,11 +206,16 @@ public class PIDController {
     }
 
     public synchronized double getErrorTotal() {
-        return m_totalError;
+        double totalError = 0;
+        for (Double i : al) {
+            totalError+=i;
+        }
+        return totalError;
     }
 
     public synchronized double getErrorVelocity() {
-        return m_error - m_prevError;
+        int size = al.size() - 1;
+        return (al.get(size) - al.get(0)) / size;
     }
 
     /**
@@ -245,7 +258,8 @@ public class PIDController {
      */
     public void reset() {
         disable();
-        m_prevError = 0;
+        al.clear();
+        //m_prevError = 0;
         m_totalError = 0;
         m_result = 0;
     }
