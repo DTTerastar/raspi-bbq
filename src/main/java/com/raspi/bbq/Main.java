@@ -26,10 +26,10 @@ public class Main {
 
             Calendar c = Calendar.getInstance();
             DateTime d = new DateTime();
-            PIDController pid = new PIDController(1, 0.5, 50);
+            PIDController pid = new PIDController(2, 0.5, 50);
             pid.setOutputRange(0, 100);
             pid.setInputRange(0, 1000);
-            pid.setIntegratorRange(-200, 100);
+            pid.setIntegratorRange(-200, 200);
             pid.setTolerance(0.01);
             pid.enable();
 
