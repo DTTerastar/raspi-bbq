@@ -64,7 +64,7 @@ public class PIDController {
         // If enabled then proceed into controller calculations
         if (m_enabled) {
 
-            if (canReadAgain!=null && Instant.now().isBefore(canReadAgain)) return;
+            if (canReadAgain != null && Instant.now().isBefore(canReadAgain)) return;
             canReadAgain = Instant.now().plus(1000);
 
             // Set the current error to the previous error for the next cycle
@@ -88,17 +88,10 @@ public class PIDController {
 
             /* Integrate the errors as long as the upcoming integrator does
                not exceed the minimum and maximum output thresholds */
-            m_totalError += Math.max(Math.min(m_error,m_maximumOutput),m_minimumOutput);
+            m_totalError = Math.max(Math.min(m_totalError + m_error, m_maximumOutput), m_minimumOutput);
 
             // Perform the primary PID calculation
-            m_result = ((m_P * m_error) + (m_I * m_totalError) + (m_D * (m_error - m_prevError)));
-
-            // Make sure the final result is within bounds
-            if (m_result > m_maximumOutput) {
-                m_result = m_maximumOutput;
-            } else if (m_result < m_minimumOutput) {
-                m_result = m_minimumOutput;
-            }
+            m_result = Math.max(Math.min(m_P * m_error + m_I * m_totalError + m_D * (m_error - m_prevError), m_maximumOutput), m_minimumOutput);
         }
     }
 
