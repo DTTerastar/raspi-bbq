@@ -81,7 +81,7 @@ public class PIDController {
 
             /* Integrate the errors as long as the upcoming integrator does
                not exceed the minimum and maximum output thresholds */
-            m_totalError = Math.max(Math.min(m_totalError + m_error, m_maximumTotalError), m_minimumTotalError);
+            //m_totalError = Math.max(Math.min(m_totalError + m_error, m_maximumTotalError), m_minimumTotalError);
 
             // Perform the primary PID calculation
             m_result = Math.max(Math.min(m_P * m_error + m_I * getErrorTotal() + m_D * getErrorVelocity(), m_maximumOutput), m_minimumOutput);
@@ -208,9 +208,9 @@ public class PIDController {
     public synchronized double getErrorTotal() {
         double totalError = 0;
         for (Double i : al) {
-            totalError+=i;
+            totalError += i;
         }
-        return totalError;
+        return Math.max(Math.min(totalError, m_maximumTotalError), m_minimumTotalError);
     }
 
     public synchronized double getErrorVelocity() {
