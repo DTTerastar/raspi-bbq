@@ -133,7 +133,6 @@ public class PIDController {
      * @return the latest calculated output
      */
     public double performPID() {
-        calculate();
         return m_output;
     }
 
@@ -264,8 +263,9 @@ public class PIDController {
         m_output = 0;
     }
 
-    public void getInput(double input){
+    public void setInput(double input) {
         m_input = input;
+        calculate();
     }
 
     public double getOutput() {

@@ -38,7 +38,7 @@ public class Model {
 
     public void setPitTemp(int pitTemp) {
         this.pitTemp = pitTemp;
-        pid.getInput(pitTemp);
+        pid.setInput(pitTemp);
     }
 
     public DisplayState getDisplayState() {
