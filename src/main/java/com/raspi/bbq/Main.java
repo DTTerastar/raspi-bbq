@@ -26,8 +26,8 @@ public class Main {
 
             Calendar c = Calendar.getInstance();
             DateTime d = new DateTime();
-            PIDController pid = new PIDController(1e-1, 1e-1, 5);
-            pid.setOutputRange(0, 1);
+            PIDController pid = new PIDController(1, 1, 5);
+            pid.setOutputRange(0, 100);
             pid.setInputRange(0, 1000);
             pid.setTolerance(0.01);
             pid.enable();

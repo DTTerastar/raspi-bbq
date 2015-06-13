@@ -29,7 +29,7 @@ public class Model {
     }
 
     public double getFan() {
-        return pid.performPID();
+        return pid.performPID()/100.0;
     }
 
     public int getPitTemp() {
