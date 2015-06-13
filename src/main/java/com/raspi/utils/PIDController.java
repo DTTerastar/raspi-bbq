@@ -155,7 +155,7 @@ public class PIDController {
      * @param minimumTotalError the minimum value expected from the total error.
      * @param maximumTotalError the maximum value expected from the total error.
      */
-    public void setTotalErrorRange(double minimumTotalError, double maximumTotalError) {
+    public void setIntegratorRange(double minimumTotalError, double maximumTotalError) {
         m_minimumTotalError = minimumTotalError;
         m_maximumTotalError = maximumTotalError;
     }
